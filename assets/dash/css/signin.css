@@ -1,0 +1,217 @@
+body {
+    padding-top: 20px;
+    padding-bottom: 20px
+}
+.grid-margin {
+    /*margin-bottom: 1.875rem;*/
+}
+.stretch-card {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: stretch;
+    align-items: stretch;
+    -webkit-justify-content: stretch;
+    justify-content: stretch;
+}
+.stretch-card > .card {
+    width: 100%;
+    min-width: 100%;
+}
+.icon-card-primary {
+    background: #ffb300;
+    color: #ffffff;
+}
+.card .card-body {
+    padding: 5px 10px;
+}
+.card-body {
+    flex: 1 1 auto;
+    padding: 1.25rem;
+    display: flex;
+}
+.card {
+    border-radius: 0.625rem;
+}
+.icon-card-primary .icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.3);
+}
+.icon-card-primary .icon i {
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    display: block;
+    color: white;
+}
+.font-weight-medium {
+    font-weight: 500;
+    font-size: 16px;
+}
+.mt-3{
+    margin-top: -1rem !important;
+}
+.align-items-center{
+    align-items: center !important;
+}
+.font-weight-normal {
+    font-weight: 700 !important;
+    font-size: 20px;
+}
+.card-body img{
+    width: 21%;
+    padding-right: 10px;
+    height: 60px;
+}
+.icon-card-success {
+    background: #ab47bc;
+    color: #ffffff;
+}
+.icon-card-info {
+    background: #26a69a;
+    color: #ffffff;
+}
+
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+.tab button {
+    /*background-color: inherit;*/
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 5px;
+    transition: 0.3s;
+    font-size: 17px;
+    width: 50%;
+}
+.tabs button{
+    width: 20%;
+}
+.tab button:hover {
+    /*background-color: #ddd;*/
+}
+
+.tab button.active {
+    /*background-color: #ccc;*/
+    font-weight: 800;
+}
+
+.tabcontent {
+    display: none;
+    padding: 0 15px;
+    border: 1px solid #ccc;
+    border-top: none;
+    /*height: 200px;*/
+    /*overflow-y: scroll;*/
+}
+.tabcontents{
+    display: none;
+    padding: 0 15px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+.order-card {
+    color: #fff;
+}
+
+.bg-c-blue {
+    background: #57c8f2;
+    background-image: url(../img/penerimaan_pud.png) 10%; 
+}
+.bg-c-blue2 {
+    background: #a9d96c;
+}
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    border: none;
+    margin-bottom: 10px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.card .card-block {
+    padding: 5px 25px;
+}
+.card-block h4{
+    font-weight: bold;
+    font-size: 14px;
+}
+.order-card i {
+    font-size: 26px;
+}
+
+.f-left {
+    float: left;
+}
+
+.f-right {
+    float: right;
+    font-weight: bold;
+    font-size: 14px;
+}
+.m-b-0{
+    margin: 0 0 5px;
+    font-size: 12px;
+}
+.pajak{
+    background: #57c8f2;
+    color: #fff;
+}
+
+.pajak:hover{
+    background: #49aed4;
+    color: #fff;
+}
+.retribusi{
+    background: #a9d96c;
+    color: #fff;
+}
+.retribusi:hover{
+    background: #8cb35a;
+    color: #fff;
+}
+.pendapatan{
+    background: #25476a;
+    color: #fff;
+}
+.grafik button{
+    font-size: 12px;
+}
+
+.controls{
+    margin:5px 0 5px;
+}
+.controls .bg-c-blue2{
+    border: 1px solid #a9d96c;
+}
+.controls .bg-c-blue2:hover{
+    background: #a9d96c;
+    border: 1px solid #a9d96c;
+}
+.controls .left{
+    float: left;
+}
+.controls .right{
+    float: right;
+}
+.controls a{
+    font-weight: bold;
+    padding: 0px 5px;
+    margin: 50px 5px -70px;
+}
+#carousel-example{
+    padding: 0 15px;
+    margin: 5px;
+}
+#carousel-example1{
+    padding: 0 15px;
+    margin: 5px;
+}

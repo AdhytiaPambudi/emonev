@@ -1,0 +1,150 @@
+declare
+  ret kua.ret_raperda4a;
+  sumberdana record;
+begin
+
+  for sumberdana in
+  select rs.kodesumberdana,
+         rs.urai
+  from rkpd.sumberdana rs
+  where tahun = intahun
+  loop
+    ret.kodesumberdana=sumberdana.kodesumberdana;
+    ret.urai=sumberdana.urai;
+    --btl pegawai
+    select coalesce(sum(kb.pagu), 0.0) as jumlah
+    from kua.belanjatl kk
+    into ret.btl_p
+    left join kua.belanjatlrincian kb on kb.tahun = kk.tahun and
+      kb.kodeurusan = kk.kodeurusan and kb.kodesuburusan = kk.kodesuburusan and kb.kodeorganisasi = kk.kodeorganisasi and
+      kb.kodebidang = kk.kodebidang and kb.kodeprogram = kk.kodeprogram and kb.kodekegiatan = kk.kodekegiatan and 
+      kb.kodeakun = kk.kodeakun and kb.kodekelompok = kk.kodekelompok and kb.kodejenis = kk.kodejenis and 
+      kb.kodeobjek = kk.kodeobjek and kb.koderincianobjek = kk.koderincianobjek
+    where kk.tahun = intahun and
+          kk.kodesumberdana = sumberdana.kodesumberdana and
+          kb.kodeakun = 5 and
+          kb.kodekelompok = 1 and
+          kb.kodejenis = 1;
+    
+    --btl lainnya
+    select coalesce(sum(kb.pagu), 0.0) as jumlah
+    from kua.belanjatl kk
+    into ret.btl_l
+    left join kua.belanjatlrincian kb on kb.tahun = kk.tahun and
+      kb.kodeurusan = kk.kodeurusan and kb.kodesuburusan = kk.kodesuburusan and kb.kodeorganisasi = kk.kodeorganisasi and
+      kb.kodebidang = kk.kodebidang and kb.kodeprogram = kk.kodeprogram and kb.kodekegiatan = kk.kodekegiatan and 
+      kb.kodeakun = kk.kodeakun and kb.kodekelompok = kk.kodekelompok and kb.kodejenis = kk.kodejenis and 
+      kb.kodeobjek = kk.kodeobjek and kb.koderincianobjek = kk.koderincianobjek
+    where kk.tahun = intahun and
+          kk.kodesumberdana = sumberdana.kodesumberdana and
+          kb.kodeakun = 5 and
+          kb.kodekelompok = 1 and
+          kb.kodejenis > 1;
+    
+    --bl pegawai
+    select coalesce(sum(kb.pagu), 0.0) as jumlah
+    from kua.kegiatan kk
+    into ret.bl_p
+    left join kua.belanjarincian kb on kb.tahun = kk.tahun and
+      kb.kodeurusan = kk.kodeurusan and kb.kodesuburusan = kk.kodesuburusan and kb.kodeorganisasi = kk.kodeorganisasi and 
+      kb.kodebidang = kk.kodebidang and kb.kodeprogram = kk.kodeprogram and kb.kodekegiatan = kk.kodekegiatan
+    where kk.tahun = intahun and
+          kk.kodesumberdana = sumberdana.kodesumberdana and
+          kb.kodeakun = 5 and
+          kb.kodekelompok = 2 and
+          kb.kodejenis = 1;
+    
+    --bl barjas
+    select coalesce(sum(kb.pagu), 0.0) as jumlah
+    from kua.kegiatan kk
+    into ret.bl_b
+    left join kua.belanjarincian kb on kb.tahun = kk.tahun and
+      kb.kodeurusan = kk.kodeurusan and kb.kodesuburusan = kk.kodesuburusan and kb.kodeorganisasi = kk.kodeorganisasi and 
+      kb.kodebidang = kk.kodebidang and kb.kodeprogram = kk.kodeprogram and kb.kodekegiatan = kk.kodekegiatan
+    where kk.tahun = intahun and
+          kk.kodesumberdana = sumberdana.kodesumberdana and
+          kb.kodeakun = 5 and
+          kb.kodekelompok = 2 and
+          kb.kodejenis = 2;
+    
+    --bl modal
+    select coalesce(sum(kb.pagu), 0.0) as jumlah
+    from kua.kegiatan kk
+    into ret.bl_m
+    left join kua.belanjarincian kb on kb.tahun = kk.tahun and
+      kb.kodeurusan = kk.kodeurusan and kb.kodesuburusan = kk.kodesuburusan and kb.kodeorganisasi = kk.kodeorganisasi and 
+      kb.kodebidang = kk.kodebidang and kb.kodeprogram = kk.kodeprogram and kb.kodekegiatan = kk.kodekegiatan
+    where kk.tahun = intahun and
+          kk.kodesumberdana = sumberdana.kodesumberdana and
+          kb.kodeakun = 5 and
+          kb.kodekelompok = 2 and
+          kb.kodejenis = 3;
+          
+    --pembiayaan dana cadangan
+    select coalesce(sum(kb.pagu), 0.0) as jumlah
+    from kua.pembiayaan kk
+    into ret.p_d
+    left join kua.pembiayaanrincian kb on kb.tahun = kk.tahun and
+      kb.kodeurusan = kk.kodeurusan and kb.kodesuburusan = kk.kodesuburusan and kb.kodeorganisasi = kk.kodeorganisasi and
+      kb.kodebidang = kk.kodebidang and kb.kodeprogram = kk.kodeprogram and kb.kodekegiatan = kk.kodekegiatan and 
+      kb.kodeakun = kk.kodeakun and kb.kodekelompok = kk.kodekelompok and kb.kodejenis = kk.kodejenis and 
+      kb.kodeobjek = kk.kodeobjek and kb.koderincianobjek = kk.koderincianobjek
+    where kk.tahun = intahun and
+          kk.kodesumberdana = sumberdana.kodesumberdana and
+          kb.kodeakun = 6 and
+          kb.kodekelompok = 2 and
+          kb.kodejenis = 1;
+          
+    --pembiayaan modal
+    select coalesce(sum(kb.pagu), 0.0) as jumlah
+    from kua.pembiayaan kk
+    into ret.p_m
+    left join kua.pembiayaanrincian kb on kb.tahun = kk.tahun and
+      kb.kodeurusan = kk.kodeurusan and kb.kodesuburusan = kk.kodesuburusan and kb.kodeorganisasi = kk.kodeorganisasi and
+      kb.kodebidang = kk.kodebidang and kb.kodeprogram = kk.kodeprogram and kb.kodekegiatan = kk.kodekegiatan and 
+      kb.kodeakun = kk.kodeakun and kb.kodekelompok = kk.kodekelompok and kb.kodejenis = kk.kodejenis and 
+      kb.kodeobjek = kk.kodeobjek and kb.koderincianobjek = kk.koderincianobjek
+    where kk.tahun = intahun and
+          kk.kodesumberdana = sumberdana.kodesumberdana and
+          kb.kodeakun = 6 and
+          kb.kodekelompok = 2 and
+          kb.kodejenis = 2;
+    
+    --pembiayaan utang
+    select coalesce(sum(kb.pagu), 0.0) as jumlah
+    from kua.pembiayaan kk
+    into ret.p_u
+    left join kua.pembiayaanrincian kb on kb.tahun = kk.tahun and
+      kb.kodeurusan = kk.kodeurusan and kb.kodesuburusan = kk.kodesuburusan and kb.kodeorganisasi = kk.kodeorganisasi and
+      kb.kodebidang = kk.kodebidang and kb.kodeprogram = kk.kodeprogram and kb.kodekegiatan = kk.kodekegiatan and 
+      kb.kodeakun = kk.kodeakun and kb.kodekelompok = kk.kodekelompok and kb.kodejenis = kk.kodejenis and 
+      kb.kodeobjek = kk.kodeobjek and kb.koderincianobjek = kk.koderincianobjek
+    where kk.tahun = intahun and
+          kk.kodesumberdana = sumberdana.kodesumberdana and
+          kb.kodeakun = 6 and
+          kb.kodekelompok = 2 and
+          kb.kodejenis = 3;
+    
+    --pembiayaan pinjaman daerah
+    select coalesce(sum(kb.pagu), 0.0) as jumlah
+    from kua.pembiayaan kk
+    into ret.p_p
+    left join kua.pembiayaanrincian kb on kb.tahun = kk.tahun and
+      kb.kodeurusan = kk.kodeurusan and kb.kodesuburusan = kk.kodesuburusan and kb.kodeorganisasi = kk.kodeorganisasi and
+      kb.kodebidang = kk.kodebidang and kb.kodeprogram = kk.kodeprogram and kb.kodekegiatan = kk.kodekegiatan and 
+      kb.kodeakun = kk.kodeakun and kb.kodekelompok = kk.kodekelompok and kb.kodejenis = kk.kodejenis and 
+      kb.kodeobjek = kk.kodeobjek and kb.koderincianobjek = kk.koderincianobjek
+    where kk.tahun = intahun and
+          kk.kodesumberdana = sumberdana.kodesumberdana and
+          kb.kodeakun = 6 and
+          kb.kodekelompok = 2 and
+          kb.kodejenis = 4;
+    
+    ret.jumlah = ret.btl_p+ret.btl_l+ret.bl_p+ret.bl_b+ret.bl_m+ret.p_d+ret.p_m+ret.p_u+ret.p_p;
+
+    return next ret;
+
+  end loop;
+  return;
+end;
+
