@@ -1165,9 +1165,9 @@
             $('#totrealpersenfisik').val(out.tot_persen_fisik);
             $('#totrealpersenkeu').val(out.tot_persen_keuangan);
 
-            $('#nilai_kontrak').val(out.nilai_kontrak);
-            $('#kontraktor').val(out.kontraktor);
-            $('#no_kontrak').val(out.no_kontrak);
+            // $('#nilai_kontrak').val(out.nilai_kontrak);
+            // $('#kontraktor').val(out.kontraktor);
+            // $('#no_kontrak').val(out.no_kontrak);
             $('#distrik').val(out.distrik);
             $('#kampung').val(out.kampung);
             $('#koordinat').val(out.koordinat);
@@ -1185,10 +1185,10 @@
                 $('#kontraktor').removeAttr('readonly');
                 $('#no_kontrak').removeAttr('readonly');
                 $('#dokumen-kontraktual').removeAttr('hidden');
-                $('#rab').val(out.file_rab);
-                $('#previewRAB').html(out.preview_rab);
-                $('#sampul').val(out.file_sampul);
-                $('#previewKontrak').html(out.preview_kontrak);
+                // $('#rab').val(out.file_rab);
+                // $('#previewRAB').html(out.preview_rab);
+                // $('#sampul').val(out.file_sampul);
+                // $('#previewKontrak').html(out.preview_kontrak);
             }else{
                 $('#bentuk_NK').prop('checked',false);
                 $('#bentuk_K').prop('checked',false);

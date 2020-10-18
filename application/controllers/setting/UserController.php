@@ -92,7 +92,7 @@
 	            $row[] = $field->skpd;
 	            $row[] = $field->grup;
 	            $row[] = '<center>
-		 	    	<a href="#" class="btn btn-info btn-flat btn-xs edit" data-id="'.$field->id.'" data-username="'.$field->username.'"  data-nama="'.$field->nama.'" data-skpd="'.$field->id_skpd.'" data-role="'.$field->group_id.'"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit"></i></a>
+		 	    	<a href="#" class="btn btn-info btn-flat btn-xs edit" data-id="'.$field->id.'" data-username="'.$field->username.'"  data-nama="'.$field->nama.'" data-skpd="'.$field->id_skpd.'" data-role="'.$field->group_id.'" data-nip="'.$field->nip.'"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit"></i></a>
 		 	    	<a href="#" class="dropdown-item btn btn-danger btn-flat btn-xs tombol-hapus" data-id="'.$field->id.'" data-nama="'.$field->nama.'" data-toggle="tooltip" title="Hapus"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
 		 	    	</center>';
 	            $data[] = $row;
@@ -148,9 +148,12 @@
 			$username = $this->input->post('username');
 			$pass = $this->input->post('password');
 			$nama = $this->input->post('nama');
+			$nip = $this->input->post('nip');
+
 			if ($role == 1) {
 				$data = array(
 							'nama' => $nama,
+							'nip' => $nip,
 							'username' => $username,
 							'userpwd' =>  password_hash($pass, PASSWORD_BCRYPT),
 							'aktif' => 1,
@@ -161,6 +164,7 @@
 			}else if($role == 5){
 				$data = array(
 					'nama' => $nama,
+					'nip' => $nip,
 					'username' => $username,
 					'userpwd' =>  password_hash($pass, PASSWORD_BCRYPT),
 					'aktif' => 1,
@@ -171,6 +175,7 @@
 			else if($role == 3){
 				$data = array(
 					'nama' => $nama,
+					'nip' => $nip,
 					'username' => $username,
 					'userpwd' =>  password_hash($pass, PASSWORD_BCRYPT),
 					'aktif' => 1,
@@ -195,18 +200,19 @@
 
 		public function update(){
 			
+
 			$whereUpdate = array('username' => $this->input->post('username'));
 			$role = $this->input->post('role');
 			$password = $this->input->post('password');
 			if($password != ''){
-				$dataPass = array('password' => $password);
+				$dataPass = array('userpwd' => $password);
 			}
 
 			
-				
 					if ($role == 1) {
 						$data = array(
 							'nama' => $this->input->post('nama'),
+							'nip' => $this->input->post('nip'),
 							'id_skpd' => 1,
 							'group_id' => $this->input->post('role'),
 						);
@@ -214,6 +220,7 @@
 						
 						$data = array(
 							'nama' => $this->input->post('nama'),
+							'nip' => $this->input->post('nip'),
 							'id_skpd' => $this->input->post('skpd'),
 							'group_id' => $this->input->post('role'),
 						);
@@ -222,6 +229,7 @@
 						
 						$data = array(
 							'nama' => $this->input->post('nama'),
+							'nip' => $this->input->post('nip'),
 							'id_skpd' => $this->input->post('bidang'),
 							'group_id' => $this->input->post('role'),
 						);
@@ -236,6 +244,7 @@
 					
 					$this->db->where($whereUpdate);
 					$result = $this->db->update('m_user',$data);
+
 					
 					if($result){
 						$dataRet['pesan'] = "Data Berhasil DiUpdate!";

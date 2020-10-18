@@ -178,6 +178,45 @@
 				$result['tableLampiran'] = $htmlTable;
 				$result['tbldokumentasi'] = $htmlTable;
 
+
+				$folderRKon		= 'assets/rab_kontrak/'.$thn.'/'.$kegTemp.'/'.$rekTemp.'/'.$poTemp.'/';
+				$cekTableRKon = $this->db->get_where('trdreal_kontrak', array('tahun_anggaran' => $thn,'kd_kegiatan' => $keg,'kd_rek' => $rek,'no_po' => $po))->result();	
+
+				if (count($cekTableRKon) <> 0) {
+					$htmlTableKontrak = '';
+					$noFileRKon = 1;
+					foreach ($cekTableRKon as $valueRKon) {
+						$file_rab = $valueRKon->file_rab;
+						$file_sampul = $valueRKon->file_kontrak;
+						if ($file_rab <> '') {
+							$fileDokRAB='<a href="'.base_url().$folderRKon.$file_rab.'" target="_blank">RAB</a>';
+							
+						}else{
+							$fileDokRAB = ''; 
+						}
+
+						if ($file_sampul <> '') {
+							$fileDokSampul='<a href="'.base_url().$folderRKon.$file_sampul.'" target="_blank">Sampul Kontrak</a>';
+							
+						}else{
+							$fileDokSampul = ''; 
+						}
+
+						$htmlTableKontrak .= '<tr>
+                                    	<td style="text-align:center;">'.$fileDokRAB.' - '.$fileDokSampul. '</td>
+                                    	<td style="text-align:left;">'.$valueRKon->no_kontrak.'</td>
+                                        <td style="text-align:left;">'.$valueRKon->kontraktor.'</td>
+                                        <td style="text-align:right;">'.number_format($valueRKon->nilai_kontrak,'2',',','.').'</td>
+                                    </tr>';
+					}
+					
+				}else{
+					$htmlTableKontrak = '';
+				}
+				$result['tableLampiran'] = $htmlTable;
+				$result['tbldokumentasi'] = $htmlTable;
+
+
 				$config =  $this->db->query('SELECT * FROM ms_config where tahun_anggaran = '.$thn.' and kd_skpd = "'.$skpd.'" limit 1')->row();
 				if(count($config) > 0){
 					$result['tw1'] = $config->show_triwulan1;
@@ -190,9 +229,6 @@
 					$result['tw3'] = 'T';
 					$result['tw4'] = 'T'; 
 				}
-
-
-
 
 				$result['tblfisik'] = '
                                     <tr>
@@ -228,11 +264,11 @@
                  }
 				$result['tblkontrak'] = '
                                     <tr>
-                                        <td style="text-align:center;"><span '.$styleNK.'>Non Kontraktual</span> / <span '.$styleK.'>Kontraktual</span></td>
-                                        <td style="text-align:left;">'.$result["no_kontrak"].'</td>
-                                        <td style="text-align:left;">'.$result["kontraktor"].'</td>
-                                        <td style="text-align:right;">'.$result["nilai_kontrak"].'</td>
-                                    </tr>';     
+                                        <td colspan = "4" style="text-align:left;"><span '.$styleNK.'>Non Kontraktual</span> / <span '.$styleK.'>Kontraktual</span></td>
+                                    </tr>
+                                    '.$htmlTableKontrak.'
+
+                                    ';     
 
                 $result['tbllokasi'] = '
                                     <tr>

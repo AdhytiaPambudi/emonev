@@ -54,6 +54,13 @@
 						</div>
 					  </div>
 
+					  <div class="form-group row">
+						<label for="nip" class="col-sm-2 control-label input-sm">NIP *</label>
+						<div class="col-sm-9">
+						  <input type="text" name="nip" class="form-control input-sm" id="nip" maxlength="25" placeholder="">
+						</div>
+					  </div>
+					   
 					   <div class="form-group row">
 						<label for="nama" class="col-sm-2 control-label input-sm">Nama *</label>
 						<div class="col-sm-9">
@@ -236,6 +243,7 @@
         	$('#username').val('');
         	$('#password').val('');
         	$('#nama').val('');
+        	$('#nip').val('');
         	
         	$('.user-skpd').attr('hidden','');
         	$('#username').removeAttr('readonly');
@@ -251,6 +259,7 @@
 			var id 			= $(this).attr("data-id");
          	var username 	= $(this).attr("data-username");
          	var nama 		= $(this).attr("data-nama");
+         	var nip 		= $(this).attr("data-nip");
          	var skpd 		= $(this).attr("data-skpd");
          	
          	
@@ -261,6 +270,7 @@
 			
          	$('#username').val(username);
          	$('#nama').val(nama);
+         	$('#nip').val(nip);
          	
 
 
@@ -321,10 +331,16 @@
 		    var link;
 		    var username = $('#username').val();
 		    var nama = $('#nama').val();
+		    var nip = $('#nip').val();
 		    var password = $('#password').val();
 
 		    if (username == '') {
 		    	Swal.fire({position: 'top-end',icon: 'warning',title: 'DATA USERNAME BELUM DIISI',showConfirmButton: false,timer: 2000});
+				exit();
+		    }
+
+		    if (nip == '') {
+		    	Swal.fire({position: 'top-end',icon: 'warning',title: 'DATA NIP BELUM DIISI',showConfirmButton: false,timer: 2000});
 				exit();
 		    }
 
