@@ -69,7 +69,8 @@
                             <thead>
                             <tr class="active">
                                 <th style="width:5%;text-align: center;"><b>NO</b></th>
-                                <th style="width:65%;text-align: center;"><b>Dokumentasi</b></th>
+                                <th style="width:25%;text-align: center;"><b>Dokumentasi</b></th>
+                                <th style="width:40%;text-align: center;"><b>Uraian</b></th>
                                 <th style="width:15%;text-align: center;"><b>Status (Publish)</b></th>
                                 <th style="width:15%;text-align: center;"><b>Aksi</b></th>
                             </tr>

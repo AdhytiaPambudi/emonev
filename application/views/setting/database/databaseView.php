@@ -10,6 +10,7 @@
                         <li class="active"><a href="#backup_tab">Backup Database</a></li>
                         <li><a href="#restore_tab">Restore Database</a></li>
                         <li><a href="#transfer_tab">Transfer Data Keuangan</a></li>
+                        <li><a href="#xml_tab">Transfer Data Keuangan (XML)</a></li>
                     </ul>
                     <div id="myTabContent" class="tab-content custom-product-edit">
                         <div class="product-tab-list tab-pane fade active in" id="backup_tab">
@@ -294,6 +295,245 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="product-tab-list tab-pane fade " id="xml_tab">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="review-content-section" style="height:450px;">
+                                        <div id="dropzone1" class="pro-ad">
+                                        <div class="widget-program-bg" hidden>
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                                <div class="hpanel shadow-inner hbggreen bg-1 responsive-mg-b-30">
+                                                                    <div class="panel-body">
+                                                                        <div class="text-center content-bg-pro">
+                                                                            <h3>Data Anggaran</h3>
+                                                                            <p class="text-big font-light">
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="bpddata" data-tbl="anggaran">My Data</button>
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="keudata" data-tbl="anggaran">Import</button>
+                                                                            </p>
+
+                                                                            <small id ="lastUpdateAnggaran">Terakhir Update : - </small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                                <div class="hpanel shadow-inner hbggreen bg-1 responsive-mg-b-30">
+                                                                    <div class="panel-body">
+                                                                        <div class="text-center content-bg-pro">
+                                                                            <h3>Data RKA (Keu)</h3>
+                                                                            <p class="text-big font-light">
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="bpddata" data-tbl="rka">My Data</button>
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="keudata" data-tbl="rka">Import</button>
+                                                                            </p>
+                                                                            <small id ="lastUpdateRKA">Terakhir Update : - </small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                                <div class="hpanel shadow-inner hbggreen bg-1 responsive-mg-b-30">
+                                                                    <div class="panel-body">
+                                                                        <div class="text-center content-bg-pro">
+                                                                            <h3>Data Rincian</h3>
+                                                                            <p class="text-big font-light">
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="bpddata" data-tbl="rincian">My Data</button>
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="keudata" data-tbl="rincian">Import</button>
+                                                                            </p>
+
+                                                                            <small id ="lastUpdateRincian">Terakhir Update : - </small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                                <div class="hpanel shadow-inner hbggreen bg-1 responsive-mg-b-30">
+                                                                    <div class="panel-body">
+                                                                        <div class="text-center content-bg-pro">
+                                                                            <h3>Data SKPD</h3>
+                                                                            <p class="text-big font-light">
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="bpddata" data-tbl="skpd">My Data</button>
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="keudata" data-tbl="skpd">Import</button>
+                                                                            </p>
+
+                                                                            <small id ="lastUpdateSKPD">Terakhir Update : - </small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+
+
+
+                                                
+                                                <div class="widget-program-bg">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" hidden>
+                                                                <div class="hpanel shadow-inner hbggreen bg-1 responsive-mg-b-30">
+                                                                    <div class="panel-body">
+                                                                        <div class="text-center content-bg-pro">
+                                                                            <h3>Data Fungsi</h3>
+                                                                            <p class="text-big font-light">
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="bpddata" data-tbl="fungsi">My Data</button>
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="keudata" data-tbl="fungsi">Import</button>
+                                                                            </p>
+                                                                            <small id ="lastUpdateFungsi">Terakhir Update : - </small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" hidden>
+                                                                <div class="hpanel shadow-inner hbggreen bg-1 responsive-mg-b-30">
+                                                                    <div class="panel-body">
+                                                                        <div class="text-center content-bg-pro">
+                                                                            <h3>Data Urusan</h3>
+                                                                            <p class="text-big font-light">
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="bpddata" data-tbl="urusan">My Data</button>
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="keudata" data-tbl="urusan">Import</button>
+                                                                            </p>
+
+                                                                            <small id ="lastUpdateUrusan">Terakhir Update : - </small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                                <div class="hpanel shadow-inner hbgyellow bg-1 responsive-mg-b-30">
+                                                                    <div class="panel-body">
+                                                                        <div class="text-center content-bg-pro">
+                                                                        <form id="form-tapd" enctype="multipart/form-data" method="post">
+                                                                            <h3>Data TAPD</h3>
+                                                                            <!-- <p class="text-big font-light"> -->
+
+                                                                                <!-- <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="bpddata" data-tbl="tapd">My Data</button>
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="keudata" data-tbl="tapd">Import</button> -->
+                                                                            <!-- </p> -->
+                                                                            <div class="file-upload-inner file-upload-inner-right ts-forms">
+                                                                                <div class="input append-small-btn">
+                                                                                    <div class="file-button">
+                                                                                        Browse
+                                                                                        <input type="file" id="file_tapd" onchange="validateFormatXML(this,'nm_file_tapd')" name="file_tapd">
+                                                                                    </div>
+                                                                                    <input type="text" id="nm_file_tapd" name="nm_file_tapd" placeholder="File (.xml)" readonly="">
+                                                                                </div>
+                                                                            </div>
+                                                                            <hr>
+                                                                            <input type="submit"  value="Preview" id="restore_db" class="btn btn-success waves-effect waves-light">
+                                                                            <!-- <small id ="lastUpdateTAPD">Terakhir Update : - </small> -->
+                                                                        </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" hidden>
+                                                                <div class="hpanel shadow-inner hbggreen bg-1 responsive-mg-b-30">
+                                                                    <div class="panel-body">
+                                                                        <div class="text-center content-bg-pro">
+                                                                            <h3>Data TTD</h3>
+                                                                            <p class="text-big font-light">
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="bpddata" data-tbl="ttd">My Data</button>
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="keudata" data-tbl="ttd">Import</button>
+                                                                            </p>
+
+                                                                            <small id ="lastUpdateTTD">Terakhir Update : - </small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="widget-program-bg" hidden>
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                                <!-- <div class="hpanel shadow-inner hbggreen bg-1 responsive-mg-b-30">
+                                                                    <div class="panel-body">
+                                                                        <div class="text-center content-bg-pro">
+                                                                            <h3>Data - </h3>
+                                                                            <p class="text-big font-light">
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="bpddata" data-tbl="-">My Data</button>
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="keudata" data-tbl="-">Import</button>
+                                                                            </p>
+
+                                                                            <small id ="lastUpdate-">Terakhir Update : - </small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> -->
+                                                            </div>
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                                <div class="hpanel shadow-inner hbggreen bg-1 responsive-mg-b-30">
+                                                                    <div class="panel-body">
+                                                                        <div class="text-center content-bg-pro">
+                                                                            <h3>Data Sumber Dana</h3>
+                                                                            <p class="text-big font-light">
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="bpddata" data-tbl="sumberdana">My Data</button>
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="keudata" data-tbl="sumberdana">Import</button>
+                                                                            </p>
+                                                                            <small id ="lastUpdateSumberDana">Terakhir Update : - </small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                           
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                                <div class="hpanel shadow-inner hbggreen bg-1 responsive-mg-b-30">
+                                                                    <div class="panel-body">
+                                                                        <div class="text-center content-bg-pro">
+                                                                            <h3>Data Rek. Anggaran</h3>
+                                                                            <p class="text-big font-light">
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="bpddata" data-tbl="rekAnggaran">My Data</button>
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="keudata" data-tbl="rekAnggaran">Import</button>
+                                                                            </p>
+
+                                                                            <small id ="lastUpdateRekAnggaran">Terakhir Update : - </small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                                <div class="hpanel shadow-inner hbggreen bg-1 responsive-mg-b-30">
+                                                                    <div class="panel-body">
+                                                                        <div class="text-center content-bg-pro">
+                                                                            <h3>Data Rek. Laporan</h3>
+                                                                            <p class="text-big font-light">
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="bpddata" data-tbl="rekLaporan">My Data</button>
+                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="keudata" data-tbl="rekLaporan">Import</button>
+                                                                            </p>
+
+                                                                            <small id ="lastUpdateRekLaporan">Terakhir Update : - </small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div> -->
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row" hidden>
+                                                    <div class="col-lg-12">
+                                                        <div id="loading-icon" style="text-align:center">
+                                                            
+                                                        </div>
+                                                        <div class="payment-adress">
+                                                            <button type="button" class="btn btn-primary waves-effect waves-light" id="backup">Transfer</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         
                     </div>
                 </div>
@@ -397,6 +637,51 @@
             
     }
 
+    function validateFormatXML(fileInput,nm){
+    // var selectedFile = objFileControl.value;
+    // console.log(objFileControl.files[0].type); 
+                
+                var filePath = fileInput.value; 
+                const fileSize = fileInput.files[0].size;
+                const size = Math.round((fileSize / 1024)); 
+
+                
+                // Allowing file type 
+
+                var allowedExtensions =  
+                        /(\.xml)$/i; 
+                
+                if (!allowedExtensions.exec(filePath)) { 
+                    Swal.fire({
+                        position: 'top-end',
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Tipe File Tidak Diperbolehkan!',
+                        showConfirmButton: false,
+                        timer: 2000
+                        });
+                    fileInput.value = ''; 
+                    return false; 
+                }  else{
+                    var nmfile = filePath.replace("C:\\fakepath\\", "")
+                     $('#'+nm).val(nmfile);
+                }
+
+                // if (size > 1024) { 
+                //     Swal.fire({
+                //     position: 'top-end',
+                //         icon: 'error',
+                //         title: 'Oops...',
+                //         text: 'Ukuran File Terlalu Besar! Maksimal Ukuran File : 1 MB',
+                //     showConfirmButton: false,
+                //     timer: 2000
+                //     });
+                //     fileInput.value = ''; 
+                //     return false; 
+                // }
+            
+    }
+
 
     // $(document).on("click", "#restore", function() {
         
@@ -452,6 +737,37 @@
             $("#nm_file_restore").val('');
           })
           e.preventDefault();
+            
+    
+    });
+
+
+    $('#form-tapd').submit(function(e) {
+        var text = $('#nm_file_tapd').val();
+        if (text == '') {
+            alert('HARAP PILIH FILE');
+            e.preventDefault();
+            exit();
+        
+        }else{
+            $.ajax({
+            method: 'POST',
+            url: '<?php echo base_url('transfer-tapd'); ?>',
+            data: new FormData(this),
+            contentType:false,
+            cache : false,
+            processData:false,
+          })
+          .done(function(data) {
+            var out = jQuery.parseJSON(data);
+            alert(out.pesan);
+            var inputFile = $("#file_tapd");
+            inputFile.replaceWith(inputFile.val('').clone(true));
+            $("#nm_file_tapd").val('');
+          })
+          e.preventDefault();
+        }
+         e.preventDefault();
             
     
     });

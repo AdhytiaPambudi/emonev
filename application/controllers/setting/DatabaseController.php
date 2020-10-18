@@ -250,6 +250,108 @@
 
 		}
 
+
+		public function transfer_tapd()
+		{
+
+			//upload dulu filenya
+			// $fupload = $_FILES['file_restore'];
+
+			// $nama = $_FILES['file_restore']['name'];
+			// if(isset($fupload)){
+			// $lokasi_file = $fupload['tmp_name'];
+
+			// $direktori=base_url().'database/restore/'.$nama;
+			// print_r($direktori);die();
+			// move_uploaded_file($lokasi_file,$direktori);
+			// }
+
+
+			// $filename = $_FILES['file_tapd']['name'];  
+			// copy($_FILES['file_tapd']['tmp_name'], base_url().'transfer/'.$filename);
+			// $xmlfile = base_url().'transfer/'.$filename;
+			// $xmlRaw = file_get_contents($xmlfile);
+			// $this->load->library('Simplexml');
+			// $xmlData = $this->simplexml->xml_parse($xmlRaw);
+			// print_r($xmlData);die();
+
+			$files = $_FILES['file_tapd'];  
+			
+			$folder		= 'database/transfer/';
+
+            $config=array(  
+	            'upload_path' => './'.$folder, 
+	            'allowed_types' => '*',  
+	            'max_size' => '200000',  
+	            'max_width' => '200000',  
+	            'max_height' => '200000'  
+            );
+
+
+            $i = 0;
+            $upload = 0;
+
+            // for ($i=0; $i < $jmlFile ; $i++) { 
+
+			$convertFile = str_replace(' ', '_', $files['name']);
+			
+			$pathAndFile = $folder.$convertFile;
+			
+       		if($convertFile <> ''){
+            	$_FILES['file_tapd']['name'] = $convertFile; 
+                $_FILES['file_tapd']['type'] = $files['type'];  
+                $_FILES['file_tapd']['tmp_name'] = $files['tmp_name'];  
+                $_FILES['file_tapd']['error'] = $files['error'];  
+                $_FILES['file_tapd']['size'] = $files['size'];  
+                $this->load->library('upload', $config); 
+                if (file_exists($pathAndFile)) {
+                	unlink($pathAndFile);
+                } 
+                $this->upload->do_upload('file_tapd');
+                $upload = 1;
+         	}else{
+         		$convertFile = '';
+			 }
+
+
+			$isi_file=file_get_contents($pathAndFile);
+			$xmlData = simplexml_load_string($isi_file);
+
+			// $this->load->library('Simplexml');
+			// $xmlData = $this->simplexml->xml_parse($isi_file);
+
+			
+
+			$this->db->from('tapd');
+			$this->db->truncate();
+
+			$i = 0;
+			foreach($xmlData->row as $value){
+				$data = array('no'=>$value->no,'nip'=>$value->nip,'nama'=>$value->nama,'jabatan'=>$value->jabatan);
+				$this->db->insert('tapd',$data);
+				$i++;
+			}
+			$res['pesan'] = $i . ' Data Berhasil DiTransfer';
+
+			echo json_encode($res);
+
+			// $this->load->dbutil();
+			// $this->load->helper('file');
+			
+			// $config = array(
+			// 	'format'	=> 'zip',
+			// 	'filename'	=> 'database.sql'
+			// );
+			
+			// $backup =& $this->dbutil->backup($config);
+			
+			// $save = FCPATH.'database/backup-'.date("Y-m-d H-i-s").'-db.zip';
+			
+			// $res = write_file($save, $backup);
+			// echo $res;
+
+		}
+
 		public function get_combo_prov(){
 			echo $this->daerah_model->getprov();	
 		}

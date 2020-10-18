@@ -57,6 +57,12 @@ $route['backup-restore'] 							= 'setting/DatabaseController/index';
 $route['backup-database'] 							= 'setting/DatabaseController/backup';
 $route['restore-database'] 							= 'setting/DatabaseController/restore';
 $route['download-database'] 						= 'setting/DatabaseController/download';
+
+$route['transfer-tapd'] 							= 'setting/DatabaseController/transfer_tapd';
+
+
+
+
 $route['check-data-database'] 						= 'setting/DatabaseController/check_data_database';
 $route['importdata-database'] 						= 'setting/DatabaseController/import_data_database';
 $route['get-last-update-database'] 						= 'setting/DatabaseController/get_last_update_database';
