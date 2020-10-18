@@ -70,31 +70,23 @@
                                         </select>
                                         <span class="help-block small pull-right">Margins</span>
                                     </li>
-                                    <!-- <li>
-                                        <a href="#" class="listDPA" data-id="dpaSkpd0">
-											<i class="fa fa-file"></i> DPA PPKD 0
-										</a>
-                                    </li>
+                                    <hr>
                                     <li>
-                                        <a href="#" class="listDPA" data-id="dpaPpkd1">
-											<i class="fa fa-file"></i> DPA PPKD 1
-										</a>
+                                        <select name="spacing" style="width:100%;" id="spacing" class="form-control">
+                                            <option value="0" selected>0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </select>
+                                        <span class="help-block small pull-right">Baris Tambahan</span>
                                     </li>
-                                    <li>
-                                        <a href="#" class="listDPA" data-id="dpaPpkd21">
-											<i class="fa fa-file"></i> DPA PPKD 21
-										</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="listDPA" data-id="dpaPpkd31">
-											<i class="fa fa-file"></i> DPA PPKD 31
-										</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="listDPA" data-id="dpaPpkd32">
-											<i class="fa fa-file"></i> DPA PPKD 32
-										</a>
-                                    </li> -->
                                     
                                 </ul>
                                 <hr>
@@ -172,6 +164,7 @@
          // setting
         var ori = $('#orientation').val();
         var mar = $('#margins').val();
+        var space = $('#spacing').val();
         
         if(skpd == ''){
             alert('HARAP ISI SKPD');
@@ -179,7 +172,7 @@
         }
 
         if(output == 'pdf'){
-            window.open('<?php echo base_url('rekapitulasi-capaian-perubahan-pdf/'); ?>'+skpd+'/'+id+'?tgl='+tgl+'&orientation='+ori+'&margins='+mar, '_blank');	
+            window.open('<?php echo base_url('rekapitulasi-capaian-perubahan-pdf/'); ?>'+skpd+'/'+id+'?tgl='+tgl+'&orientation='+ori+'&margins='+mar+'&spacing='+space, '_blank');	
         }else{
             window.open('<?php echo base_url('rekapitulasi-capaian-perubahan-excel/'); ?>'+skpd+'/'+id+'?tgl='+tgl, '_blank');	
         }

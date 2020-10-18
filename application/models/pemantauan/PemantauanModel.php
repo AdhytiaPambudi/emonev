@@ -703,7 +703,23 @@
 									}
 					}
 					
-					
+					if ($spacing >= 0) {
+						for ($i=0; $i < $spacing ; $i++) { 
+							
+							$cRet .= "<tr><td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" width=\"10%\" align=\"left\">&nbsp;</td>                                     
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" >&nbsp;</td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" >&nbsp;</td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" >&nbsp;</td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">&nbsp;</td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">&nbsp;</td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">&nbsp;</td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">&nbsp;</td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">&nbsp;</td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">&nbsp;</td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">&nbsp;</td>
+										 </tr>";
+						}
+					}
 
 					$q ="SELECT SUM(nilai) as juminten FROM trdrka WHERE kd_kegiatan IN (SELECT kd_kegiatan FROM trskpd WHERE jns_kegiatan='52' AND kd_skpd='$id') ";
 					$s = $this->db->query($q);
@@ -738,6 +754,7 @@
 										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\"><b>$jo</b></td>
 								  </tr>" ;    
 					}
+					
 
 					$cRet .="  <tfoot>
 					<tr>
@@ -754,6 +771,10 @@
 						   <td style=\"border-top: solid 1px black;border-bottom: none;border-left: none;border-right: none;\" width=\"9%\">&nbsp;</td>  
 						</tr>
 					</tfoot>";
+
+
+
+
 					$cRet .="<tr>
 									
 									<td colspan=\"8\" width=\"70%\" align=\"left\" style=\"border-right:none;\">&nbsp;<br>&nbsp;

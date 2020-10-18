@@ -56,6 +56,23 @@
                                         <span class="help-block small pull-right">Margins</span>
                                     </li>
                                     
+                                    <hr>
+                                    <li>
+                                        <select name="spacing" style="width:100%;" id="spacing" class="form-control">
+                                            <option value="0" selected>0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </select>
+                                        <span class="help-block small pull-right">Baris Tambahan</span>
+                                    </li>
                                     
                                 </ul>
                                 <hr>
@@ -150,6 +167,7 @@
         // setting
         var ori = $('#orientation').val();
         var mar = $('#margins').val();
+        var space = $('#spacing').val();
         
         // if(skpd == ''){
         //     alert('HARAP ISI SKPD');
@@ -157,7 +175,7 @@
         // }
 
         if(output == 'pdf'){
-            window.open('<?php echo base_url('rekapitulasi-capaian-kab-perubahan-pdf/'); ?>'+id+'?tgl='+tgl+'&sd='+sd+'&orientation='+ori+'&margins='+mar, '_blank');	
+            window.open('<?php echo base_url('rekapitulasi-capaian-kab-perubahan-pdf/'); ?>'+id+'?tgl='+tgl+'&sd='+sd+'&orientation='+ori+'&margins='+mar+'&spacing='+space, '_blank');	
         }else{
             window.open('<?php echo base_url('rekapitulasi-capaian-kab-perubahan-excel/'); ?>'+id+'?tgl='+tgl+'&sd='+sd, '_blank');		
         }

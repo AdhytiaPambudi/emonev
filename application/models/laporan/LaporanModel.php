@@ -7,6 +7,7 @@
         {   
 
         	// print_r($_GET);die();
+        	$spacing = $_GET['spacing'];
 
         	$_sd = $_GET['sd'];
         	
@@ -83,7 +84,7 @@
             // for ($i=0; $i < count($sdKode) ; $i++) { 
                 
             
-			$cRet .= "<table style=\"border-collapse:collapse;font-size:8pt;\" width=\"100%\" align=\"center\" border=\"1\" cellspacing=\"0\" cellpadding=\"4\">
+			$cRet .= "<table style=\"border-collapse:collapse;font-size:7pt;\" width=\"100%\" align=\"center\" border=\"1\" cellspacing=\"0\" cellpadding=\"4\">
 						 <thead>                       
 							<tr><td rowspan=\"3\" bgcolor=\"#CCCCCC\" width=\"5%\" align=\"center\"><b>NO</b></td>                            
 								<td rowspan=\"3\" bgcolor=\"#CCCCCC\" width=\"45%\" align=\"center\"><b>ORGANISASI</b></td>
@@ -163,13 +164,27 @@
 						 $cRet    .= " <tr><td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\"><b>$kode</b></td>                                     
 										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" ><b>$uraian</b></td>
 										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\"><b>$pagu</b></td>
-										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">$realisasi</td>
-										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">$persenKeu</td>
-										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">$persenFis</td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\"><b>$realisasi</b></td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\"><b>$persenKeu</b></td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\"><b>$persenFis</b></td>
 										 </tr>
 										 ";
                        
                     }
+
+                    if ($spacing >= 0) {
+						for ($i=0; $i < $spacing ; $i++) { 
+							 $cRet    .= " <tr><td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\"><b>&nbsp;</b></td>                                     
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" ><b>&nbsp;</b></td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\"><b>&nbsp;</b></td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">&nbsp;</td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">&nbsp;</td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">&nbsp;</td>
+										 </tr>
+										 ";
+						}
+					}
+
                     $cRet    .= " <tr><td colspan=\"6\" style=\"vertical-align:top;border-top: solid 1px black;vertical-align:middle;\" align=\"center\"><b>&nbsp;</b></td>
                     </tr>
                     ";
@@ -207,6 +222,7 @@
         	ini_set('max_execution_time', 0); 
             ini_set('memory_limit','2048M');
         	$_sd = $_GET['sd'];
+        	$spacing = $_GET['spacing'];
         	
         	$tgl = $_GET['tgl'];
             $_tgl = $this->PublicModel->tgl_indo($tgl);
@@ -678,6 +694,34 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
 						 </thead>
 							";
 					$cRet .= $cRet2;
+
+					if ($spacing >= 0) {
+						for ($i=0; $i < $spacing ; $i++) { 
+							 $cRet    .= " <tr>
+                                <td width=\"5%\" align=\"center\">&nbsp;</td>
+                                <td width=\"15%\" align=\"center\">&nbsp;</td>
+                                <td width=\"7%\" align=\"center\">&nbsp;</td>
+                                <td width=\"7%\" align=\"center\">&nbsp;</td>
+                                <td width=\"3%\" align=\"center\">&nbsp;</td>
+                                <td width=\"3%\" align=\"center\">&nbsp;</td>
+                                <td width=\"7%\" align=\"center\">&nbsp;</td>
+                                <td width=\"7%\" align=\"center\">&nbsp;</td>
+                                <td width=\"3%\" align=\"center\">&nbsp;</td>
+                                <td width=\"3%\" align=\"center\">&nbsp;</td>
+                                <td width=\"7%\" align=\"center\">&nbsp;</td>
+                                <td width=\"7%\" align=\"center\">&nbsp;</td>
+                                <td width=\"3%\" align=\"center\">&nbsp;</td>
+                                <td width=\"3%\" align=\"center\">&nbsp;</td>
+                                <td width=\"7%\" align=\"center\">&nbsp;</td>
+                                <td width=\"7%\" align=\"center\">&nbsp;</td>
+                                <td width=\"3%\" align=\"center\">&nbsp;</td>
+                                <td width=\"3%\" align=\"center\">&nbsp;</td>
+							</tr>";
+						}
+					}
+
+
+
 					$cRet    .= " <tr><td colspan=\"18\" style=\"vertical-align:top;border-top: solid 1px black;vertical-align:middle;\" align=\"center\"><b>&nbsp;</b></td>
                     </tr></table><hr><br>
                     ";
@@ -734,6 +778,10 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
 
         function rck_pdf($skpd,$tw)
         {   
+
+        	
+        	$spacing = $_GET['spacing'];
+
         	$tgl = $_GET['tgl'];
             $_tgl = $this->PublicModel->tgl_indo($tgl);
 
@@ -803,21 +851,21 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
 						</tr>
 					  </table>";
 			
-			$cRet .= "<table style=\"border-collapse:collapse;font-size:8pt;\" width=\"100%\" align=\"center\" border=\"1\" cellspacing=\"0\" cellpadding=\"4\">
+			$cRet .= "<table style=\"border-collapse:collapse;font-size:7pt;\" width=\"100%\" align=\"center\" border=\"1\" cellspacing=\"0\" cellpadding=\"4\">
 						 <thead>                       
 							<tr><td rowspan=\"3\" bgcolor=\"#CCCCCC\" width=\"5%\" align=\"center\"><b>NO</b></td>                            
 								<td rowspan=\"3\" bgcolor=\"#CCCCCC\" width=\"25%\" align=\"center\"><b>PROGRAM/KEGIATAN</b></td>
 								<td colspan=\"2\" bgcolor=\"#CCCCCC\" width=\"20%\" align=\"center\"><b>TARGET KINERJA</b></td>
 								<td rowspan=\"3\" bgcolor=\"#CCCCCC\" width=\"10%\" align=\"center\"><b>NILAI YANG<br>DIKONTRAKKAN</b></td>
-								<td colspan=\"4\" bgcolor=\"#CCCCCC\" width=\"30%\" align=\"center\"><b>REALISASI KINERJA</b></td>
-								<td rowspan=\"3\" bgcolor=\"#CCCCCC\" width=\"10%\" align=\"center\"><b>KETERANGAN</b></td>
+								<td colspan=\"3\" bgcolor=\"#CCCCCC\" width=\"25%\" align=\"center\"><b>REALISASI KINERJA</b></td>
+								<td rowspan=\"3\" bgcolor=\"#CCCCCC\" width=\"15%\" align=\"center\"><b>KETERANGAN</b></td>
 							</tr>
 							<tr>
 								<td rowspan=\"2\" width=\"10%\" bgcolor=\"#CCCCCC\" align=\"center\"><b>FISIK</b></td>
 								<td rowspan=\"2\" width=\"10%\" bgcolor=\"#CCCCCC\" align=\"center\"><b>KEUANGAN</b></td>
                                 <td colspan=\"2\" width=\"15%\" bgcolor=\"#CCCCCC\" align=\"center\"><b>KEUANGAN</b></td>
                                 <td rowspan=\"2\" width=\"10%\" bgcolor=\"#CCCCCC\" align=\"center\"><b>FISIK</b></td>
-                                <td rowspan=\"2\" width=\"5%\" bgcolor=\"#CCCCCC\" align=\"center\"><b>(%)</b></td>
+                                
                             </tr>    
                             <tr>
 								<td width=\"10%\" bgcolor=\"#CCCCCC\" align=\"center\"><b>(Rp)</b></td>
@@ -832,8 +880,8 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
                                 <td width=\"10%\" bgcolor=\"#CCCCCC\" align=\"center\"><b><i>6</i></b></td>
                                 <td width=\"5%\" bgcolor=\"#CCCCCC\" align=\"center\"><b><i>7</i></b></td>
                                 <td width=\"10%\" bgcolor=\"#CCCCCC\" align=\"center\"><b><i>8</i></b></td>
-                                <td width=\"5%\" bgcolor=\"#CCCCCC\" align=\"center\"><b><i>9</i></b></td>
-                                <td width=\"10%\" bgcolor=\"#CCCCCC\" align=\"center\"><b><i>10</i></b></td>
+                                <td width=\"15%\" bgcolor=\"#CCCCCC\" align=\"center\"><b><i>9</i></b></td>
+                                
 							</tr>    
 						 </thead>
 					
@@ -845,8 +893,8 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
 								<td style=\"vertical-align:top;border-top: none;border-bottom: none;\" width=\"10%\">&nbsp;</td>
 								<td style=\"vertical-align:top;border-top: none;border-bottom: none;\" width=\"5%\">&nbsp;</td>
 								<td style=\"vertical-align:top;border-top: none;border-bottom: none;\" width=\"10%\">&nbsp;</td>
-								<td style=\"vertical-align:top;border-top: none;border-bottom: none;\" width=\"5%\">&nbsp;</td>                            
-								<td style=\"vertical-align:top;border-top: none;border-bottom: none;\" width=\"10%\">&nbsp;</td></tr>
+								<td style=\"vertical-align:top;border-top: none;border-bottom: none;\" width=\"15%\">&nbsp;</td>                            
+								</tr>
 							";
 	
 						$sql1="SELECT *,(tot_real_keuangan/nilai)*100 as persen_keu FROM 
@@ -945,13 +993,13 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
 						 $cRet    .= " <tr><td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" width=\"10%\" align=\"center\"><b>$noprogRomawi</b></td>                                     
 										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" ><b>$uraian</b></td>
 										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\"><b>$targetFisik</b></td>
-										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">$targetKeu</td>
-										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">$kontrak</td>
-										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">$realKeu</td>
-										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">$persenKeu</td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\"><b>$targetKeu</b></td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\"><b>$kontrak</b></td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\"><b>$realKeu</b></td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\"><b>$persenKeu</b></td>
 										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\"></td>
 										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\"></td>
-										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\"></td>
+										 
 										 </tr>
 										 ";
                         }else{
@@ -961,10 +1009,9 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
                                         <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" >$uraian</td>
                                         <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">$targetFisik</td>
                                         <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">$targetKeu</td>
-                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">$kontrak</td>
-                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">$realKeu</td>
-                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">$persenKeu</td>
-                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\"></td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">$kontrak</td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">$realKeu</td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">$persenKeu</td>
                                         <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\"></td>
                                         <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\"></td>
                                         </tr>
@@ -972,42 +1019,48 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
 
                         }
                     }
+
+                    if ($spacing >= 0) {
+						for ($i=0; $i < $spacing ; $i++) { 
+							$cRet .="<tr><td style=\"vertical-align:top;border-top: none;\" width=\"5%\" align=\"center\">&nbsp;</td>                            
+				                    <td style=\"vertical-align:top;border-top: none;\" width=\"25%\">&nbsp;</td>
+				                    <td style=\"vertical-align:top;border-top: none;\" width=\"10%\">&nbsp;</td>
+				                    <td style=\"vertical-align:top;border-top: none;\" width=\"10%\">&nbsp;</td>
+				                    <td style=\"vertical-align:top;border-top: none;\" width=\"10%\">&nbsp;</td>
+				                    <td style=\"vertical-align:top;border-top: none;\" width=\"10%\">&nbsp;</td>
+				                    <td style=\"vertical-align:top;border-top: none;\" width=\"5%\">&nbsp;</td>
+				                    <td style=\"vertical-align:top;border-top: none;\" width=\"10%\">&nbsp;</td>
+				                    <td style=\"vertical-align:top;border-top: none;\" width=\"15%\">&nbsp;</td>                            
+				                    </tr>";
+						}
+					}
                     
-                    $cRet .="<tr><td style=\"vertical-align:top;border-top: none;\" width=\"5%\" align=\"center\">&nbsp;</td>                            
-                    <td style=\"vertical-align:top;border-top: none;\" width=\"25%\">&nbsp;</td>
-                    <td style=\"vertical-align:top;border-top: none;\" width=\"10%\">&nbsp;</td>
-                    <td style=\"vertical-align:top;border-top: none;\" width=\"10%\">&nbsp;</td>
-                    <td style=\"vertical-align:top;border-top: none;\" width=\"10%\">&nbsp;</td>
-                    <td style=\"vertical-align:top;border-top: none;\" width=\"10%\">&nbsp;</td>
-                    <td style=\"vertical-align:top;border-top: none;\" width=\"5%\">&nbsp;</td>
-                    <td style=\"vertical-align:top;border-top: none;\" width=\"10%\">&nbsp;</td>
-                    <td style=\"vertical-align:top;border-top: none;\" width=\"5%\">&nbsp;</td>                            
-                    <td style=\"vertical-align:top;border-top: none;\" width=\"10%\">&nbsp;</td></tr>";
+                    
 					
                      $cRet.="
                         <tr style=\"border-top:none;border-bottom:none;\">
                             
                             <td colspan=\"5\" align=\"left\" style=\"font-size:8pt;border-bottom:none;border-right:none;border-left:none;border-top:none;\">&nbsp;</td>
-                            <td colspan=\"5\" align=\"center\" style=\"font-size:8pt;border-bottom:none;border-right:none;border-left:none;border-top:none;\">&nbsp;</td>
+                            <td colspan=\"4\" align=\"center\" style=\"font-size:8pt;border-bottom:none;border-right:none;border-left:none;border-top:none;\">&nbsp;</td>
                         </tr>   
                         <tr style=\"border-top:none;border-bottom:none;\">
                             
                             <td colspan=\"5\" align=\"left\" style=\"font-size:8pt;border-bottom:none;border-right:none;border-left:none;border-top:none;\">&nbsp;</td>
-                            <td colspan=\"5\" align=\"center\" style=\"font-size:8pt;border-bottom:none;border-right:none;border-left:none;border-top:none;\">$ibukota, $_tgl</td>
+                            <td colspan=\"4\" align=\"center\" style=\"font-size:8pt;border-bottom:none;border-right:none;border-left:none;border-top:none;\">$ibukota, $_tgl</td>
                         </tr>
                         <tr style=\"border-top:none;border-bottom:none;\">
                             <td colspan=\"5\" align=\"left\" style=\"font-size:8pt;border-bottom:none;border-right:none;border-left:none;border-top:none;vertical-align:top;\">&nbsp;</td>
-                            <td colspan=\"5\" align=\"center\" style=\"height:100px;font-size:8pt;border-bottom:none;border-right:none;border-left:none;border-top:none;vertical-align:top;\">$jabatan<br>$kab</td>
+                            <td colspan=\"4\" align=\"center\" style=\"height:100px;font-size:8pt;border-bottom:none;border-right:none;border-left:none;border-top:none;vertical-align:top;\">$jabatan<br>$kab</td>
                         </tr>
                         <tr style=\"border-top:none;border-bottom:none;\">
                             <td colspan=\"5\" width=\"47%\" align=\"left\" style=\"font-size:8pt;border-bottom:none;border-right:none;border-left:none;border-top:none;vertical-align:top;\"></td>
-                            <td colspan=\"5\" width=\"50%\" align=\"center\" style=\"font-size:8pt;border-bottom:none;border-right:none;border-left:none;border-top:none;vertical-align:top;\"><u>$nama</u><br>NIP: $nip</td>
+                            <td colspan=\"4\" width=\"50%\" align=\"center\" style=\"font-size:8pt;border-bottom:none;border-right:none;border-left:none;border-top:none;vertical-align:top;\"><u>$nama</u><br>NIP: $nip</td>
                         </tr>
                         
 					  ";
 
 					$cRet2 .="<tr>
-									<td width=\"100%\" align=\"left\" colspan=\"11\">
+									<td width=\"100%\" align=\"left\" colspan=\"9\">
 									<table border=\"0\">
 									<tr>
 									<td width=\"100%\" align=\"left\">&nbsp;<br>&nbsp;
@@ -1033,7 +1086,11 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
         
         function realckk_pdf($skpd,$keg,$tw)
         {   
+        	ini_set('max_execution_time', 0); 
+            ini_set('memory_limit','2048M');
             $tgl = $_GET['tgl'];
+            $spacing = $_GET['spacing'];
+            
             $_tgl = $this->PublicModel->tgl_indo($tgl);
             $thn_anggaran = $this->session->userdata('thn_ang');
 
@@ -1444,6 +1501,31 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
                     $jumlahRealKeuPersen = number_format($jumlahRealKeuPersen,'2',',','.');
                     $jumlahNilaiKontrak = number_format($jumlahNilaiKontrak,'2',',','.');
 
+
+                    if ($spacing >= 0) {
+						for ($i=0; $i < $spacing ; $i++) { 
+							  $cRet    .= " <tr>  <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\" colspan=\"2\"><b>&nbsp;</b></td>                                     
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">&nbsp;</td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\"><b>&nbsp;</b></td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\"><b>&nbsp;</b></td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">&nbsp;</td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">&nbsp;</td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">&nbsp;</td>
+										<td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">&nbsp;</td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">&nbsp;</td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">&nbsp;</td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"left\">&nbsp;</td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"left\">&nbsp;</td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"left\">&nbsp;</td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"left\">&nbsp;</td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">&nbsp;</td>
+
+                                        </tr>
+                                        ";
+						}
+					}
+
+
                     $cRet    .= " <tr>  <td bgcolor=\"#CCCCCC\" style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\" colspan=\"2\"><b>Jumlah</b></td>                                     
                                         <td bgcolor=\"#CCCCCC\" style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\"></td>
                                         <td bgcolor=\"#CCCCCC\" style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\"><b>$jumlahTargetKeu</b></td>
@@ -1546,6 +1628,7 @@ $dataGambar = $this->db->query($queryGambar)->result();
             $thn_anggaran = $this->session->userdata('thn_ang');
 
            	$tgl = $_GET['tgl'];
+           	$spacing = $_GET['spacing'];
             $_tgl = $this->PublicModel->tgl_indo($tgl);
 
             $thn_anggaran = $this->session->userdata('thn_ang');
@@ -1894,6 +1977,29 @@ $dataGambar = $this->db->query($queryGambar)->result();
                     $jumlahRealKeu = number_format($jumlahRealKeu,'2',',','.');
                     $jumlahRealKeuPersen = number_format($jumlahRealKeuPersen,'2',',','.');
                     $jumlahNilaiKontrak = number_format($jumlahNilaiKontrak,'2',',','.');
+
+                     if ($spacing >= 0) {
+						for ($i=0; $i < $spacing ; $i++) { 
+							  $cRet    .= " <tr>  <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\" colspan=\"2\"><b>&nbsp;</b></td>                                     
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">&nbsp;</td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\"><b>&nbsp;</b></td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\"><b>&nbsp;</b></td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">&nbsp;</td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">&nbsp;</td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">&nbsp;</td>
+										<td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">&nbsp;</td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">&nbsp;</td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">&nbsp;</td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"left\">&nbsp;</td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"left\">&nbsp;</td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"left\">&nbsp;</td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"left\">&nbsp;</td>
+                                        <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">&nbsp;</td>
+
+                                        </tr>
+                                        ";
+						}
+					}
 
                     $cRet    .= " <tr>  <td bgcolor=\"#CCCCCC\" style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\" colspan=\"2\"><b>Jumlah</b></td>                                     
                                         <td bgcolor=\"#CCCCCC\" style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\"></td>
