@@ -1357,15 +1357,18 @@
 		function get_top_keu($thn)
 		{
 			// $sts_ubah = $this->session->userdata('sts_ang');
+			ini_set('max_execution_time', 0); 
+            ini_set('memory_limit','2048M');
 			$config =  $this->db->query('SELECT * FROM ms_config where tahun_anggaran = '.$thn.' limit 1')->row();
 			$stsAng = $config->sts_anggaran;
+
 
 			$html['top_keu'] = '';
 			$html['top_fisik'] = '';
 			$html['bot_keu'] = '';
 			$html['bot_fisik'] = '';
 			
-			if($sts_ubah == 'Murni'){
+			if($stsAng == 'Murni'){
 				$nilai = 'total';
 				$vol = 'tvolume';
 			}else{
@@ -1390,8 +1393,9 @@
 									dau ON s.kd_skpd = dau.kd_skpd AND s.tahun_anggaran = dau.ta GROUP BY s.tahun_anggaran,s.kd_skpd,s.nm_skpd)jml ;";
 
 			
-					
+			
 			$data = $this->db->query($sql)->result_array();
+			
 
 			$dataTopKeu = $data;
 			$dataBotKeu = $data;

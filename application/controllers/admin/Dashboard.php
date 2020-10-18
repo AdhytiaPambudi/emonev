@@ -32,7 +32,9 @@
 
 		public function top_real_dashboard() {
 			$tahun = $this->session->userdata('thn_ang');
+
 			$data = $this->pantau_model->get_top_keu($tahun);
+
 	        echo json_encode($data);
 		}
 
@@ -54,11 +56,14 @@
 		}
 
 		public function get_chart_keu() {
+			ini_set('max_execution_time', 0); 
+            ini_set('memory_limit','2048M');
 			$skpd = $_POST['skpd'];
 			$tahun = $this->session->userdata('thn_ang');
 
 			$config =  $this->db->query('SELECT * FROM ms_config where tahun_anggaran = '.$tahun.' limit 1')->row();
 			$stsAng = $config->sts_anggaran;
+
 			
 
 				$sql = "SELECT s.tahun_anggaran,s.kd_skpd,s.nm_skpd, sum(dau.total) as susun,sum(dau.total_ubah) as ubah,
@@ -84,6 +89,7 @@
 
 
 			$res_nilai = $this->db->query($sql)->row();
+		
 			if($stsAng == 'Murni'){
 				$target[0] = round($res_nilai->susun,2)*(1/4);
 				$target[1] = round($res_nilai->susun,2)*(1/2);
@@ -117,7 +123,8 @@
 
 
 		public function get_chart_fisik() {
-
+			ini_set('max_execution_time', 0); 
+            ini_set('memory_limit','2048M');
 			$skpd = $_POST['skpd'];
 			$tahun = $this->session->userdata('thn_ang');
 

@@ -62,8 +62,9 @@
 				$sql = "SELECT * FROM ms_skpd where tahun_anggaran = ".$ta." and kd_skpd in (".$arrSKPD.")";
 			}else{
 				$sql = "SELECT * FROM ms_skpd where tahun_anggaran = ".$ta." and kd_skpd = '".$sessSKPD."'";
-				
 			}
+			
+
 			
 			$data=$this->db->query($sql);
 			$html ='<option value="">Silahakan Pilih OPD</option>';
