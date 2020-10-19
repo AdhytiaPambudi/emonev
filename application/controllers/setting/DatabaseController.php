@@ -251,32 +251,11 @@
 		}
 
 
-		public function transfer_tapd()
+
+		public function transfer_anggaran()
 		{
 
-			//upload dulu filenya
-			// $fupload = $_FILES['file_restore'];
-
-			// $nama = $_FILES['file_restore']['name'];
-			// if(isset($fupload)){
-			// $lokasi_file = $fupload['tmp_name'];
-
-			// $direktori=base_url().'database/restore/'.$nama;
-			// print_r($direktori);die();
-			// move_uploaded_file($lokasi_file,$direktori);
-			// }
-
-
-			// $filename = $_FILES['file_tapd']['name'];  
-			// copy($_FILES['file_tapd']['tmp_name'], base_url().'transfer/'.$filename);
-			// $xmlfile = base_url().'transfer/'.$filename;
-			// $xmlRaw = file_get_contents($xmlfile);
-			// $this->load->library('Simplexml');
-			// $xmlData = $this->simplexml->xml_parse($xmlRaw);
-			// print_r($xmlData);die();
-
-			$files = $_FILES['file_tapd'];  
-			
+			$files = $_FILES['file_anggaran'];  			
 			$folder		= 'database/transfer/';
 
             $config=array(  
@@ -291,10 +270,412 @@
             $i = 0;
             $upload = 0;
 
-            // for ($i=0; $i < $jmlFile ; $i++) { 
+			$convertFile = str_replace(' ', '_', $files['name']);
+			$pathAndFile = $folder.$convertFile;
+			
+       		if($convertFile <> ''){
+            	$_FILES['file_anggaran']['name'] = $convertFile; 
+                $_FILES['file_anggaran']['type'] = $files['type'];  
+                $_FILES['file_anggaran']['tmp_name'] = $files['tmp_name'];  
+                $_FILES['file_anggaran']['error'] = $files['error'];  
+                $_FILES['file_anggaran']['size'] = $files['size'];  
+                $this->load->library('upload', $config); 
+                if (file_exists($pathAndFile)) {
+                	unlink($pathAndFile);
+                } 
+                $this->upload->do_upload('file_anggaran');
+                $upload = 1;
+         	}else{
+         		$convertFile = '';
+			}
+
+			$isi_file=file_get_contents($pathAndFile);
+			$xmlData = simplexml_load_string($isi_file);
+
+			$this->db->from('trskpd');
+			$this->db->truncate();
+
+			$i = 0;
+			foreach($xmlData->row as $value){
+				$data = array(
+							'kd_gabungan'	=>$value->kd_gabungan,
+							'kd_kegiatan'	=>$value->kd_kegiatan,
+							'kd_program'	=>$value->kd_program,
+							'kd_urusan'		=>$value->kd_urusan,
+							'kd_skpd'		=>$value->kd_skpd,
+							'nm_skpd'		=>$value->nm_skpd,
+							'kd_kegiatan1'	=>$value->kd_kegiatan1,
+							'nm_kegiatan'	=>$value->nm_kegiatan,
+							'jns_kegiatan'	=>$value->jns_kegiatan,
+							'kd_program1'		=>$value->kd_program1,
+							'nm_program'		=>$value->nm_program,
+							'indika'		=>$value->indika,
+							'tu'		=>$value->tu,
+							'tk'		=>$value->tk,
+							'sasaran_giat'		=>$value->sasaran_giat,
+							'sumber_dana'		=>$value->sumber_dana,
+							'sumber_dana_ubah'		=>$value->sumber_dana_ubah,
+							'waktu_giat'		=>$value->waktu_giat,
+							'tk_kwt'		=>$value->tk_kwt,
+							'kd_pptk'		=>$value->kd_pptk,
+							'kd_comp'		=>$value->kd_comp,
+							'kontrak'		=>$value->kontrak,
+							'jns_keg'		=>$value->jns_keg,
+							
+							'tu_capai'		=>$value->tu_capai,
+							'tu_capai_ubah'		=>$value->tu_capai_ubah,
+							'tu_mas'		=>$value->tu_mas,
+							'tu_mas_ubah'		=>$value->tu_mas_ubah,
+							'tu_kel'		=>$value->tu_kel,
+							'tu_kel_ubah'		=>$value->tu_kel_ubah,
+							'tu_has'		=>$value->tu_has,
+							'tu_has_ubah'		=>$value->tu_has_ubah,
+
+							'tk_capai'		=>$value->tk_capai,
+							'tk_capai_ubah'		=>$value->tk_capai_ubah,
+							'tk_mas'		=>$value->tk_mas,
+							'tk_mas_ubah'		=>$value->tk_mas_ubah,
+							'tk_kel'		=>$value->tk_kel,
+							'tk_kel_ubah'		=>$value->tk_kel_ubah,
+							'tk_has'		=>$value->tk_has,
+							'tk_has_ubah'		=>$value->tk_has_ubah,
+
+							'alasan'		=>$value->alasan,
+							'UserName'		=>$value->UserName,
+							'latar_belakang'		=>$value->latar_belakang,
+							'triw1'		=>$value->triw1,
+							'triw2'		=>$value->triw2,
+							'triw3'		=>$value->triw3,
+							'triw4'		=>$value->triw4,
+							'total'		=>$value->total,
+
+							'triw1_ubah'		=>$value->triw1_ubah,
+							'triw2_ubah'		=>$value->triw2_ubah,
+							'triw3_ubah'		=>$value->triw3_ubah,
+							'triw4_ubah'		=>$value->triw4_ubah,
+							'total_ubah'		=>$value->total_ubah,
+
+							'lokasi'		=>$value->lokasi,
+							'kd_lokasi2'		=>$value->kd_lokasi2,
+							'sumber'		=>$value->sumber,
+							'lanjut'		=>$value->lanjut,
+							'user'		=>$value->user,
+							'tgl_update'		=>$value->tgl_update,
+							'ur'		=>$value->ur,
+							'k_ur'		=>$value->k_ur,
+							'file'		=>$value->file,
+							'tahun_anggaran'		=>$value->tahun_anggaran,
+
+
+
+							);
+				$this->db->insert('trskpd',$data);
+				print_r($this->db->error());die();
+				$i++;
+			}
+			$res['pesan'] = $i . ' Data Berhasil DiTransfer';
+
+			echo json_encode($res);
+
+		}
+
+		public function transfer_rka()
+		{
+
+			$files = $_FILES['file_urusan'];  			
+			$folder		= 'database/transfer/';
+
+            $config=array(  
+	            'upload_path' => './'.$folder, 
+	            'allowed_types' => '*',  
+	            'max_size' => '200000',  
+	            'max_width' => '200000',  
+	            'max_height' => '200000'  
+            );
+
+
+            $i = 0;
+            $upload = 0;
 
 			$convertFile = str_replace(' ', '_', $files['name']);
+			$pathAndFile = $folder.$convertFile;
 			
+       		if($convertFile <> ''){
+            	$_FILES['file_urusan']['name'] = $convertFile; 
+                $_FILES['file_urusan']['type'] = $files['type'];  
+                $_FILES['file_urusan']['tmp_name'] = $files['tmp_name'];  
+                $_FILES['file_urusan']['error'] = $files['error'];  
+                $_FILES['file_urusan']['size'] = $files['size'];  
+                $this->load->library('upload', $config); 
+                if (file_exists($pathAndFile)) {
+                	unlink($pathAndFile);
+                } 
+                $this->upload->do_upload('file_urusan');
+                $upload = 1;
+         	}else{
+         		$convertFile = '';
+			}
+
+			$isi_file=file_get_contents($pathAndFile);
+			$xmlData = simplexml_load_string($isi_file);
+
+			$this->db->from('ms_urusan');
+			$this->db->truncate();
+
+			$i = 0;
+			foreach($xmlData->row as $value){
+				$data = array('kd_urusan'=>$value->kd_urusan,'nm_urusan'=>$value->nm_urusan,'header'=>$value->header,'tipe'=>$value->tipe,'kd_fungsi'=>$value->kd_fungsi);
+				$this->db->insert('ms_urusan',$data);
+				$i++;
+			}
+			$res['pesan'] = $i . ' Data Berhasil DiTransfer';
+
+			echo json_encode($res);
+
+		}
+
+		public function transfer_rincian()
+		{
+
+			$files = $_FILES['file_urusan'];  			
+			$folder		= 'database/transfer/';
+
+            $config=array(  
+	            'upload_path' => './'.$folder, 
+	            'allowed_types' => '*',  
+	            'max_size' => '200000',  
+	            'max_width' => '200000',  
+	            'max_height' => '200000'  
+            );
+
+
+            $i = 0;
+            $upload = 0;
+
+			$convertFile = str_replace(' ', '_', $files['name']);
+			$pathAndFile = $folder.$convertFile;
+			
+       		if($convertFile <> ''){
+            	$_FILES['file_urusan']['name'] = $convertFile; 
+                $_FILES['file_urusan']['type'] = $files['type'];  
+                $_FILES['file_urusan']['tmp_name'] = $files['tmp_name'];  
+                $_FILES['file_urusan']['error'] = $files['error'];  
+                $_FILES['file_urusan']['size'] = $files['size'];  
+                $this->load->library('upload', $config); 
+                if (file_exists($pathAndFile)) {
+                	unlink($pathAndFile);
+                } 
+                $this->upload->do_upload('file_urusan');
+                $upload = 1;
+         	}else{
+         		$convertFile = '';
+			}
+
+			$isi_file=file_get_contents($pathAndFile);
+			$xmlData = simplexml_load_string($isi_file);
+
+			$this->db->from('ms_urusan');
+			$this->db->truncate();
+
+			$i = 0;
+			foreach($xmlData->row as $value){
+				$data = array('kd_urusan'=>$value->kd_urusan,'nm_urusan'=>$value->nm_urusan,'header'=>$value->header,'tipe'=>$value->tipe,'kd_fungsi'=>$value->kd_fungsi);
+				$this->db->insert('ms_urusan',$data);
+				$i++;
+			}
+			$res['pesan'] = $i . ' Data Berhasil DiTransfer';
+
+			echo json_encode($res);
+
+		}
+
+		public function transfer_skpd()
+		{
+
+			$files = $_FILES['file_urusan'];  			
+			$folder		= 'database/transfer/';
+
+            $config=array(  
+	            'upload_path' => './'.$folder, 
+	            'allowed_types' => '*',  
+	            'max_size' => '200000',  
+	            'max_width' => '200000',  
+	            'max_height' => '200000'  
+            );
+
+
+            $i = 0;
+            $upload = 0;
+
+			$convertFile = str_replace(' ', '_', $files['name']);
+			$pathAndFile = $folder.$convertFile;
+			
+       		if($convertFile <> ''){
+            	$_FILES['file_urusan']['name'] = $convertFile; 
+                $_FILES['file_urusan']['type'] = $files['type'];  
+                $_FILES['file_urusan']['tmp_name'] = $files['tmp_name'];  
+                $_FILES['file_urusan']['error'] = $files['error'];  
+                $_FILES['file_urusan']['size'] = $files['size'];  
+                $this->load->library('upload', $config); 
+                if (file_exists($pathAndFile)) {
+                	unlink($pathAndFile);
+                } 
+                $this->upload->do_upload('file_urusan');
+                $upload = 1;
+         	}else{
+         		$convertFile = '';
+			}
+
+			$isi_file=file_get_contents($pathAndFile);
+			$xmlData = simplexml_load_string($isi_file);
+
+			$this->db->from('ms_urusan');
+			$this->db->truncate();
+
+			$i = 0;
+			foreach($xmlData->row as $value){
+				$data = array('kd_urusan'=>$value->kd_urusan,'nm_urusan'=>$value->nm_urusan,'header'=>$value->header,'tipe'=>$value->tipe,'kd_fungsi'=>$value->kd_fungsi);
+				$this->db->insert('ms_urusan',$data);
+				$i++;
+			}
+			$res['pesan'] = $i . ' Data Berhasil DiTransfer';
+
+			echo json_encode($res);
+
+		}
+
+
+		public function transfer_urusan()
+		{
+
+			$files = $_FILES['file_urusan'];  			
+			$folder		= 'database/transfer/';
+
+            $config=array(  
+	            'upload_path' => './'.$folder, 
+	            'allowed_types' => '*',  
+	            'max_size' => '200000',  
+	            'max_width' => '200000',  
+	            'max_height' => '200000'  
+            );
+
+
+            $i = 0;
+            $upload = 0;
+
+			$convertFile = str_replace(' ', '_', $files['name']);
+			$pathAndFile = $folder.$convertFile;
+			
+       		if($convertFile <> ''){
+            	$_FILES['file_urusan']['name'] = $convertFile; 
+                $_FILES['file_urusan']['type'] = $files['type'];  
+                $_FILES['file_urusan']['tmp_name'] = $files['tmp_name'];  
+                $_FILES['file_urusan']['error'] = $files['error'];  
+                $_FILES['file_urusan']['size'] = $files['size'];  
+                $this->load->library('upload', $config); 
+                if (file_exists($pathAndFile)) {
+                	unlink($pathAndFile);
+                } 
+                $this->upload->do_upload('file_urusan');
+                $upload = 1;
+         	}else{
+         		$convertFile = '';
+			}
+
+			$isi_file=file_get_contents($pathAndFile);
+			$xmlData = simplexml_load_string($isi_file);
+
+			$this->db->from('ms_urusan');
+			$this->db->truncate();
+
+			$i = 0;
+			foreach($xmlData->row as $value){
+				$data = array('kd_urusan'=>$value->kd_urusan,'nm_urusan'=>$value->nm_urusan,'header'=>$value->header,'tipe'=>$value->tipe,'kd_fungsi'=>$value->kd_fungsi);
+				$this->db->insert('ms_urusan',$data);
+				$i++;
+			}
+			$res['pesan'] = $i . ' Data Berhasil DiTransfer';
+
+			echo json_encode($res);
+
+		}
+
+
+		public function transfer_fungsi()
+		{
+
+			$files = $_FILES['file_fungsi'];  			
+			$folder		= 'database/transfer/';
+
+            $config=array(  
+	            'upload_path' => './'.$folder, 
+	            'allowed_types' => '*',  
+	            'max_size' => '200000',  
+	            'max_width' => '200000',  
+	            'max_height' => '200000'  
+            );
+
+
+            $i = 0;
+            $upload = 0;
+
+			$convertFile = str_replace(' ', '_', $files['name']);
+			$pathAndFile = $folder.$convertFile;
+			
+       		if($convertFile <> ''){
+            	$_FILES['file_fungsi']['name'] = $convertFile; 
+                $_FILES['file_fungsi']['type'] = $files['type'];  
+                $_FILES['file_fungsi']['tmp_name'] = $files['tmp_name'];  
+                $_FILES['file_fungsi']['error'] = $files['error'];  
+                $_FILES['file_fungsi']['size'] = $files['size'];  
+                $this->load->library('upload', $config); 
+                if (file_exists($pathAndFile)) {
+                	unlink($pathAndFile);
+                } 
+                $this->upload->do_upload('file_fungsi');
+                $upload = 1;
+         	}else{
+         		$convertFile = '';
+			}
+
+			$isi_file=file_get_contents($pathAndFile);
+			$xmlData = simplexml_load_string($isi_file);
+
+			$this->db->from('ms_fungsi');
+			$this->db->truncate();
+
+			$i = 0;
+			foreach($xmlData->row as $value){
+				$data = array('kd_fungsi'=>$value->kd_fungsi,'nm_fungsi'=>$value->nm_fungsi);
+				$this->db->insert('ms_fungsi',$data);
+				$i++;
+			}
+			$res['pesan'] = $i . ' Data Berhasil DiTransfer';
+
+			echo json_encode($res);
+		}
+
+
+
+		public function transfer_tapd()
+		{
+
+			$files = $_FILES['file_tapd'];  			
+			$folder		= 'database/transfer/';
+
+            $config=array(  
+	            'upload_path' => './'.$folder, 
+	            'allowed_types' => '*',  
+	            'max_size' => '200000',  
+	            'max_width' => '200000',  
+	            'max_height' => '200000'  
+            );
+
+
+            $i = 0;
+            $upload = 0;
+
+			$convertFile = str_replace(' ', '_', $files['name']);
 			$pathAndFile = $folder.$convertFile;
 			
        		if($convertFile <> ''){
@@ -311,16 +692,10 @@
                 $upload = 1;
          	}else{
          		$convertFile = '';
-			 }
-
+			}
 
 			$isi_file=file_get_contents($pathAndFile);
 			$xmlData = simplexml_load_string($isi_file);
-
-			// $this->load->library('Simplexml');
-			// $xmlData = $this->simplexml->xml_parse($isi_file);
-
-			
 
 			$this->db->from('tapd');
 			$this->db->truncate();
@@ -335,20 +710,63 @@
 
 			echo json_encode($res);
 
-			// $this->load->dbutil();
-			// $this->load->helper('file');
+		}
+
+
+		public function transfer_ttd()
+		{
+
+			$files = $_FILES['file_ttd'];  			
+			$folder		= 'database/transfer/';
+
+            $config=array(  
+	            'upload_path' => './'.$folder, 
+	            'allowed_types' => '*',  
+	            'max_size' => '200000',  
+	            'max_width' => '200000',  
+	            'max_height' => '200000'  
+            );
+
+
+            $i = 0;
+            $upload = 0;
+
+			$convertFile = str_replace(' ', '_', $files['name']);
+			$pathAndFile = $folder.$convertFile;
 			
-			// $config = array(
-			// 	'format'	=> 'zip',
-			// 	'filename'	=> 'database.sql'
-			// );
-			
-			// $backup =& $this->dbutil->backup($config);
-			
-			// $save = FCPATH.'database/backup-'.date("Y-m-d H-i-s").'-db.zip';
-			
-			// $res = write_file($save, $backup);
-			// echo $res;
+       		if($convertFile <> ''){
+            	$_FILES['file_ttd']['name'] = $convertFile; 
+                $_FILES['file_ttd']['type'] = $files['type'];  
+                $_FILES['file_ttd']['tmp_name'] = $files['tmp_name'];  
+                $_FILES['file_ttd']['error'] = $files['error'];  
+                $_FILES['file_ttd']['size'] = $files['size'];  
+                $this->load->library('upload', $config); 
+                if (file_exists($pathAndFile)) {
+                	unlink($pathAndFile);
+                } 
+                $this->upload->do_upload('file_ttd');
+                $upload = 1;
+         	}else{
+         		$convertFile = '';
+			}
+
+			$isi_file=file_get_contents($pathAndFile);
+			$xmlData = simplexml_load_string($isi_file);
+
+			$this->db->from('ms_ttd');
+			$this->db->truncate();
+
+			$i = 0;
+			foreach($xmlData->row as $value){
+				$data = array('nip'=>$value->nip,'nama'=>$value->nama,'jabatan'=>$value->jabatan,'pangkat'=>$value->pangkat
+								,'kd_skpd'=>$value->kd_skpd,'kode'=>$value->kode,'norek'=>$value->norek,'npwp'=>$value->npwp
+								,'bank'=>$value->status);
+				$this->db->insert('ms_ttd',$data);
+				$i++;
+			}
+			$res['pesan'] = $i . ' Data Berhasil DiTransfer';
+
+			echo json_encode($res);
 
 		}
 

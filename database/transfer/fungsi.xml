@@ -1,0 +1,13 @@
+<data><row><kd_fungsi>00</kd_fungsi><nm_fungsi>Non Fungsi</nm_fungsi></row>
+<row><kd_fungsi>01</kd_fungsi><nm_fungsi>Pelayanan Umum</nm_fungsi></row>
+<row><kd_fungsi>02</kd_fungsi><nm_fungsi>Pertahanan *)</nm_fungsi></row>
+<row><kd_fungsi>03</kd_fungsi><nm_fungsi>Ketertiban dan ketentraman</nm_fungsi></row>
+<row><kd_fungsi>04</kd_fungsi><nm_fungsi>Ekonomi</nm_fungsi></row>
+<row><kd_fungsi>05</kd_fungsi><nm_fungsi>Lingkungan Hidup</nm_fungsi></row>
+<row><kd_fungsi>06</kd_fungsi><nm_fungsi>Perumahan dan fasilitas umum</nm_fungsi></row>
+<row><kd_fungsi>07</kd_fungsi><nm_fungsi>Kesehatan</nm_fungsi></row>
+<row><kd_fungsi>08</kd_fungsi><nm_fungsi>Pariwisata dan Budaya</nm_fungsi></row>
+<row><kd_fungsi>09</kd_fungsi><nm_fungsi>Agama *)</nm_fungsi></row>
+<row><kd_fungsi>10</kd_fungsi><nm_fungsi>Pendidikan</nm_fungsi></row>
+<row><kd_fungsi>11</kd_fungsi><nm_fungsi>Perlindungan Sosial</nm_fungsi></row>
+</data>

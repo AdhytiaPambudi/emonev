@@ -1,0 +1,40 @@
+<data><row><kd_urusan>1.01</kd_urusan><nm_urusan>Pendidikan</nm_urusan><header>1</header><tipe>S</tipe><kd_fungsi>10</kd_fungsi></row>
+<row><kd_urusan>1.02</kd_urusan><nm_urusan>Kesehatan</nm_urusan><header>1</header><tipe>S</tipe><kd_fungsi>07</kd_fungsi></row>
+<row><kd_urusan>1.03</kd_urusan><nm_urusan>Pekerjaan Umum dan Penataan Ruang</nm_urusan><header>1</header><tipe>S</tipe><kd_fungsi>06</kd_fungsi></row>
+<row><kd_urusan>1.04</kd_urusan><nm_urusan>Perumahan Rakyat dan Kawasan Pemukiman</nm_urusan><header>1</header><tipe>S</tipe><kd_fungsi>06</kd_fungsi></row>
+<row><kd_urusan>1.05</kd_urusan><nm_urusan>Ketentraman dan Ketertiban Umum serta Perlindungan Masyaraka</nm_urusan><header>1</header><tipe>S</tipe><kd_fungsi>03</kd_fungsi></row>
+<row><kd_urusan>1.06</kd_urusan><nm_urusan>Sosial</nm_urusan><header>1</header><tipe>S</tipe><kd_fungsi>11</kd_fungsi></row>
+<row><kd_urusan>2.01</kd_urusan><nm_urusan>Tenaga Kerja</nm_urusan><header>2</header><tipe>S</tipe><kd_fungsi>04</kd_fungsi></row>
+<row><kd_urusan>2.02</kd_urusan><nm_urusan>Pemberdayaan Perempuan dan Perlindungan Anak</nm_urusan><header>2</header><tipe>S</tipe><kd_fungsi>11</kd_fungsi></row>
+<row><kd_urusan>2.03</kd_urusan><nm_urusan>Pangan</nm_urusan><header>2</header><tipe>S</tipe><kd_fungsi>04</kd_fungsi></row>
+<row><kd_urusan>2.04</kd_urusan><nm_urusan>Pertanahan</nm_urusan><header>2</header><tipe>S</tipe><kd_fungsi>05</kd_fungsi></row>
+<row><kd_urusan>2.05</kd_urusan><nm_urusan>Lingkungan Hidup</nm_urusan><header>2</header><tipe>S</tipe><kd_fungsi>05</kd_fungsi></row>
+<row><kd_urusan>2.06</kd_urusan><nm_urusan>Administrasi Kependudukan dan Pencatatan Sipil</nm_urusan><header>2</header><tipe>S</tipe><kd_fungsi>11</kd_fungsi></row>
+<row><kd_urusan>2.07</kd_urusan><nm_urusan>Pemberdayaan Masyarakat Desa</nm_urusan><header>2</header><tipe>S</tipe><kd_fungsi>04</kd_fungsi></row>
+<row><kd_urusan>2.08</kd_urusan><nm_urusan>Pengendalian Penduduk dan Keluarga Berencana</nm_urusan><header>2</header><tipe>S</tipe><kd_fungsi>07</kd_fungsi></row>
+<row><kd_urusan>2.09</kd_urusan><nm_urusan>Perhubungan</nm_urusan><header>2</header><tipe>S</tipe><kd_fungsi>04</kd_fungsi></row>
+<row><kd_urusan>2.10</kd_urusan><nm_urusan>Komunikasi dan Informatika</nm_urusan><header>2</header><tipe>S</tipe><kd_fungsi>01</kd_fungsi></row>
+<row><kd_urusan>2.11</kd_urusan><nm_urusan>Koperasi  Usaha Kecil dan Menengah</nm_urusan><header>2</header><tipe>S</tipe><kd_fungsi>04</kd_fungsi></row>
+<row><kd_urusan>2.12</kd_urusan><nm_urusan>Penanaman Modal</nm_urusan><header>2</header><tipe>S</tipe><kd_fungsi>04</kd_fungsi></row>
+<row><kd_urusan>2.13</kd_urusan><nm_urusan>Kepemudaan dan Olah Raga</nm_urusan><header>2</header><tipe>S</tipe><kd_fungsi>10</kd_fungsi></row>
+<row><kd_urusan>2.14</kd_urusan><nm_urusan>Statistik</nm_urusan><header>2</header><tipe>S</tipe><kd_fungsi>01</kd_fungsi></row>
+<row><kd_urusan>2.15</kd_urusan><nm_urusan>Persandian</nm_urusan><header>2</header><tipe>S</tipe><kd_fungsi>01</kd_fungsi></row>
+<row><kd_urusan>2.16</kd_urusan><nm_urusan>Kebudayaan</nm_urusan><header>2</header><tipe>S</tipe><kd_fungsi>08</kd_fungsi></row>
+<row><kd_urusan>2.17</kd_urusan><nm_urusan>Perpustakaan</nm_urusan><header>2</header><tipe>S</tipe><kd_fungsi>10</kd_fungsi></row>
+<row><kd_urusan>2.18</kd_urusan><nm_urusan>Kearsipan</nm_urusan><header>2</header><tipe>S</tipe><kd_fungsi>01</kd_fungsi></row>
+<row><kd_urusan>3.01</kd_urusan><nm_urusan>Kelautan dan Perikanan</nm_urusan><header>3</header><tipe>S</tipe><kd_fungsi>04</kd_fungsi></row>
+<row><kd_urusan>3.02</kd_urusan><nm_urusan>Pariwisata</nm_urusan><header>3</header><tipe>S</tipe><kd_fungsi>08</kd_fungsi></row>
+<row><kd_urusan>3.03</kd_urusan><nm_urusan>Pertanian</nm_urusan><header>3</header><tipe>S</tipe><kd_fungsi>04</kd_fungsi></row>
+<row><kd_urusan>3.04</kd_urusan><nm_urusan>Kehutanan</nm_urusan><header>3</header><tipe>S</tipe><kd_fungsi>04</kd_fungsi></row>
+<row><kd_urusan>3.05</kd_urusan><nm_urusan>Energi dan Sumberdaya Mineral</nm_urusan><header>3</header><tipe>S</tipe><kd_fungsi>04</kd_fungsi></row>
+<row><kd_urusan>3.06</kd_urusan><nm_urusan>Perdagangan</nm_urusan><header>3</header><tipe>S</tipe><kd_fungsi>04</kd_fungsi></row>
+<row><kd_urusan>3.07</kd_urusan><nm_urusan>Perindustrian</nm_urusan><header>3</header><tipe>S</tipe><kd_fungsi>04</kd_fungsi></row>
+<row><kd_urusan>3.08</kd_urusan><nm_urusan>Transmigrasi</nm_urusan><header>3</header><tipe>S</tipe><kd_fungsi>04</kd_fungsi></row>
+<row><kd_urusan>4.01</kd_urusan><nm_urusan>Administrasi Pemerintahan</nm_urusan><header>4</header><tipe>S</tipe><kd_fungsi>01</kd_fungsi></row>
+<row><kd_urusan>4.02</kd_urusan><nm_urusan>Pengawasan</nm_urusan><header>4</header><tipe>S</tipe><kd_fungsi>01</kd_fungsi></row>
+<row><kd_urusan>4.03</kd_urusan><nm_urusan>Perencanaan</nm_urusan><header>4</header><tipe>S</tipe><kd_fungsi>01</kd_fungsi></row>
+<row><kd_urusan>4.04</kd_urusan><nm_urusan>Keuangan</nm_urusan><header>4</header><tipe>S</tipe><kd_fungsi>01</kd_fungsi></row>
+<row><kd_urusan>4.05</kd_urusan><nm_urusan>Kepegawaian</nm_urusan><header>4</header><tipe>S</tipe><kd_fungsi>01</kd_fungsi></row>
+<row><kd_urusan>4.06</kd_urusan><nm_urusan>Pendidikan dan Pelatihan</nm_urusan><header>4</header><tipe>S</tipe><kd_fungsi>01</kd_fungsi></row>
+<row><kd_urusan>4.07</kd_urusan><nm_urusan>Penelitian dan Pengembangan</nm_urusan><header>4</header><tipe>S</tipe><kd_fungsi>01</kd_fungsi></row>
+</data>

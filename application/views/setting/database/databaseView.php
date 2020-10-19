@@ -375,46 +375,56 @@
                                                 <div class="widget-program-bg">
                                                     <div class="container-fluid">
                                                         <div class="row">
-                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" hidden>
-                                                                <div class="hpanel shadow-inner hbggreen bg-1 responsive-mg-b-30">
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                                <div class="hpanel shadow-inner hbgyellow bg-1 responsive-mg-b-30">
                                                                     <div class="panel-body">
+                                                                        <form id="form-fungsi" enctype="multipart/form-data" method="post">
                                                                         <div class="text-center content-bg-pro">
                                                                             <h3>Data Fungsi</h3>
-                                                                            <p class="text-big font-light">
-                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="bpddata" data-tbl="fungsi">My Data</button>
-                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="keudata" data-tbl="fungsi">Import</button>
-                                                                            </p>
-                                                                            <small id ="lastUpdateFungsi">Terakhir Update : - </small>
+                                                                            <div class="file-upload-inner file-upload-inner-right ts-forms">
+                                                                                <div class="input append-small-btn">
+                                                                                    <div class="file-button">
+                                                                                        Browse
+                                                                                        <input type="file" id="file_fungsi" onchange="validateFormatXML(this,'nm_file_fungsi')" name="file_fungsi">
+                                                                                    </div>
+                                                                                    <input type="text" id="nm_file_fungsi" name="nm_file_fungsi" placeholder="File (.xml)" readonly="">
+                                                                                </div>
+                                                                            </div>
+                                                                            <hr>
+                                                                            <input type="submit"  value="Import" id="tf_fungsi" class="btn btn-success waves-effect waves-light">
                                                                         </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" hidden>
-                                                                <div class="hpanel shadow-inner hbggreen bg-1 responsive-mg-b-30">
-                                                                    <div class="panel-body">
-                                                                        <div class="text-center content-bg-pro">
-                                                                            <h3>Data Urusan</h3>
-                                                                            <p class="text-big font-light">
-                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="bpddata" data-tbl="urusan">My Data</button>
-                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="keudata" data-tbl="urusan">Import</button>
-                                                                            </p>
-
-                                                                            <small id ="lastUpdateUrusan">Terakhir Update : - </small>
-                                                                        </div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                                                                 <div class="hpanel shadow-inner hbgyellow bg-1 responsive-mg-b-30">
                                                                     <div class="panel-body">
+                                                                        <form id="form-urusan" enctype="multipart/form-data" method="post">
                                                                         <div class="text-center content-bg-pro">
+                                                                            <h3>Data Urusan</h3>
+                                                                            <div class="file-upload-inner file-upload-inner-right ts-forms">
+                                                                                <div class="input append-small-btn">
+                                                                                    <div class="file-button">
+                                                                                        Browse
+                                                                                        <input type="file" id="file_urusan" onchange="validateFormatXML(this,'nm_file_urusan')" name="file_urusan">
+                                                                                    </div>
+                                                                                    <input type="text" id="nm_file_urusan" name="nm_file_urusan" placeholder="File (.xml)" readonly="">
+                                                                                </div>
+                                                                            </div>
+                                                                            <hr>
+                                                                            <input type="submit"  value="Import" id="tf_urusan" class="btn btn-success waves-effect waves-light">
+                                                                        </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                                <div class="hpanel shadow-inner hbgyellow bg-1 responsive-mg-b-30">
+                                                                    <div class="panel-body">
                                                                         <form id="form-tapd" enctype="multipart/form-data" method="post">
+                                                                        <div class="text-center content-bg-pro">
                                                                             <h3>Data TAPD</h3>
-                                                                            <!-- <p class="text-big font-light"> -->
-
-                                                                                <!-- <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="bpddata" data-tbl="tapd">My Data</button>
-                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="keudata" data-tbl="tapd">Import</button> -->
-                                                                            <!-- </p> -->
                                                                             <div class="file-upload-inner file-upload-inner-right ts-forms">
                                                                                 <div class="input append-small-btn">
                                                                                     <div class="file-button">
@@ -425,25 +435,31 @@
                                                                                 </div>
                                                                             </div>
                                                                             <hr>
-                                                                            <input type="submit"  value="Preview" id="restore_db" class="btn btn-success waves-effect waves-light">
-                                                                            <!-- <small id ="lastUpdateTAPD">Terakhir Update : - </small> -->
-                                                                        </form>
+                                                                            <input type="submit"  value="Import" id="tf_tapd" class="btn btn-success waves-effect waves-light">
                                                                         </div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" hidden>
-                                                                <div class="hpanel shadow-inner hbggreen bg-1 responsive-mg-b-30">
+                                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                                <div class="hpanel shadow-inner hbgyellow bg-1 responsive-mg-b-30">
                                                                     <div class="panel-body">
+                                                                        <form id="form-ttd" enctype="multipart/form-data" method="post">
                                                                         <div class="text-center content-bg-pro">
                                                                             <h3>Data TTD</h3>
-                                                                            <p class="text-big font-light">
-                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="bpddata" data-tbl="ttd">My Data</button>
-                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="keudata" data-tbl="ttd">Import</button>
-                                                                            </p>
-
-                                                                            <small id ="lastUpdateTTD">Terakhir Update : - </small>
+                                                                            <div class="file-upload-inner file-upload-inner-right ts-forms">
+                                                                                <div class="input append-small-btn">
+                                                                                    <div class="file-button">
+                                                                                        Browse
+                                                                                        <input type="file" id="file_ttd" onchange="validateFormatXML(this,'nm_file_ttd')" name="file_ttd">
+                                                                                    </div>
+                                                                                    <input type="text" id="nm_file_ttd" name="nm_file_ttd" placeholder="File (.xml)" readonly="">
+                                                                                </div>
+                                                                            </div>
+                                                                            <hr>
+                                                                            <input type="submit"  value="Import" id="tf_ttd" class="btn btn-success waves-effect waves-light">
                                                                         </div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -750,6 +766,10 @@
             exit();
         
         }else{
+
+            $('#tf_tapd').val('Sedang Diporses...');
+            $('#tf_tapd').attr('disabled',true);
+
             $.ajax({
             method: 'POST',
             url: '<?php echo base_url('transfer-tapd'); ?>',
@@ -764,13 +784,119 @@
             var inputFile = $("#file_tapd");
             inputFile.replaceWith(inputFile.val('').clone(true));
             $("#nm_file_tapd").val('');
+            $('#tf_tapd').val('Import');
+            $('#tf_tapd').removeAttr('disabled');
           })
           e.preventDefault();
         }
          e.preventDefault();
-            
-    
     });
+
+
+    $('#form-ttd').submit(function(e) {
+
+        var text = $('#nm_file_ttd').val();
+        if (text == '') {
+            alert('HARAP PILIH FILE');
+            e.preventDefault();
+            exit();
+        
+        }else{
+            $('#tf_ttd').val('Sedang Diporses...');
+            $('#tf_ttd').attr('disabled',true);
+            $.ajax({
+            method: 'POST',
+            url: '<?php echo base_url('transfer-ttd'); ?>',
+            data: new FormData(this),
+            contentType:false,
+            cache : false,
+            processData:false,
+          })
+          .done(function(data) {
+            var out = jQuery.parseJSON(data);
+            
+            alert(out.pesan);
+            var inputFile = $("#file_ttd");
+            inputFile.replaceWith(inputFile.val('').clone(true));
+            $("#nm_file_ttd").val('');
+            $('#tf_ttd').val('Import');
+            $('#tf_ttd').removeAttr('disabled');
+          })
+          e.preventDefault();
+        }
+         e.preventDefault();
+    });
+
+    $('#form-urusan').submit(function(e) {
+        var text = $('#nm_file_urusan').val();
+        if (text == '') {
+            alert('HARAP PILIH FILE');
+            e.preventDefault();
+            exit();
+        
+        }else{
+
+            $('#tf_urusan').val('Sedang Diporses...');
+            $('#tf_urusan').attr('disabled',true);
+
+            $.ajax({
+            method: 'POST',
+            url: '<?php echo base_url('transfer-urusan'); ?>',
+            data: new FormData(this),
+            contentType:false,
+            cache : false,
+            processData:false,
+          })
+          .done(function(data) {
+            var out = jQuery.parseJSON(data);
+            alert(out.pesan);
+            var inputFile = $("#file_urusan");
+            inputFile.replaceWith(inputFile.val('').clone(true));
+            $("#nm_file_urusan").val('');
+            $('#tf_urusan').val('Import');
+            $('#tf_urusan').removeAttr('disabled');
+          })
+          e.preventDefault();
+        }
+         e.preventDefault();
+    });
+
+   $('#form-fungsi').submit(function(e) {
+        var text = $('#nm_file_fungsi').val();
+        if (text == '') {
+            alert('HARAP PILIH FILE');
+            e.preventDefault();
+            exit();
+        
+        }else{
+
+            $('#tf_fungsi').val('Sedang Diporses...');
+            $('#tf_fungsi').attr('disabled',true);
+
+            $.ajax({
+            method: 'POST',
+            url: '<?php echo base_url('transfer-fungsi'); ?>',
+            data: new FormData(this),
+            contentType:false,
+            cache : false,
+            processData:false,
+          })
+          .done(function(data) {
+            var out = jQuery.parseJSON(data);
+            alert(out.pesan);
+            var inputFile = $("#file_fungsi");
+            inputFile.replaceWith(inputFile.val('').clone(true));
+            $("#nm_file_fungsi").val('');
+            $('#tf_fungsi').val('Import');
+            $('#tf_fungsi').removeAttr('disabled');
+          })
+          e.preventDefault();
+        }
+         e.preventDefault();
+    });
+
+
+
 
     $(document).on("click", "#backup", function() {
         $("#loading-icon").html('<center><img src="<?php echo base_url('assets/budistyle/img/load.gif'); ?>" alt="Loading" height="60" width="60" style="padding-top:50px;"><br>Harap Tunggu...</center>');

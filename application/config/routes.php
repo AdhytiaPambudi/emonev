@@ -58,7 +58,10 @@ $route['backup-database'] 							= 'setting/DatabaseController/backup';
 $route['restore-database'] 							= 'setting/DatabaseController/restore';
 $route['download-database'] 						= 'setting/DatabaseController/download';
 
+$route['transfer-fungsi'] 							= 'setting/DatabaseController/transfer_fungsi';
+$route['transfer-urusan'] 							= 'setting/DatabaseController/transfer_urusan';
 $route['transfer-tapd'] 							= 'setting/DatabaseController/transfer_tapd';
+$route['transfer-ttd'] 								= 'setting/DatabaseController/transfer_ttd';
 
 
 
