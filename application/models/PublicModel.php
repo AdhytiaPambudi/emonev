@@ -65,7 +65,7 @@
 			}
 			
 
-			
+
 			$data=$this->db->query($sql);
 			$html ='<option value="">Silahakan Pilih OPD</option>';
 			foreach ($data->result_array() as $value) {
@@ -184,7 +184,7 @@
 		{
 			
 			$sql = "SELECT kd_kegiatan,nm_kegiatan FROM anggarankegiatan WHERE kd_skpd = '".$id."' AND LEFT(kd_rek5,2) = '52' 
-			GROUP BY kd_kegiatan ORDER BY kd_kegiatan ASC;";
+			GROUP BY kd_kegiatan,nm_kegiatan ORDER BY kd_kegiatan ASC;";
 			$data = $this->db->query($sql);
 	
 			$html ='<option value="all">Keseluruhan</option>';
