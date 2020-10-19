@@ -916,7 +916,7 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
                             END AS tot_real_fisik
                          FROM trskpd a 
                         LEFT JOIN trdreal r on a.kd_kegiatan = r.kd_kegiatan and a.tahun_anggaran = r.tahun_anggaran
-                        where a.kd_skpd = '".$skpd."' and a.tahun_anggaran = ".$thn_anggaran." group by kd_program
+                        where a.kd_skpd = '".$skpd."' and a.tahun_anggaran = ".$thn_anggaran." group by kd_program,nm_program
                         union all
                         SELECT a.kd_kegiatan AS kode,nm_kegiatan as uraian,'K' as jns,a.tk_kel AS target,
                         (SELECT sum(".$ambilNilai.") from trdrka where kd_kegiatan = a.kd_kegiatan  and tahun_anggaran = a.tahun_anggaran) as nilai,sum(r.nilai_kontrak) as nilai_kontrak,
@@ -937,9 +937,10 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
                          FROM trskpd a 
                         LEFT JOIN trdreal r on a.kd_kegiatan = r.kd_kegiatan and a.tahun_anggaran = r.tahun_anggaran
                         
-                        where a.kd_skpd = '".$skpd."' and a.tahun_anggaran = ".$thn_anggaran." group by a.kd_kegiatan) a
+                        where a.kd_skpd = '".$skpd."' and a.tahun_anggaran = ".$thn_anggaran." group by a.kd_kegiatan,a.nm_kegiatan,a.tk_kel) a
                         
                         ORDER BY kode";
+                        
                                 
                                 // $sql1="SELECT *,CASE 
 								//  WHEN LEFT(prog,4)=SUBSTRING(prog,6,4) AND RIGHT(prog,2) < 14 THEN 'A'
@@ -1310,7 +1311,7 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
                         (SELECT sum(Nilai_Ubah) FROM trdrka where kd_kegiatan = '".$keg."' and tahun_anggaran = '".$ta."') as tot_target_keg_ubah,
                         bentuk,nilai_kontrak,kontraktor,no_kontrak,distrik,kampung,koordinat
                              FROM (SELECT tahun_anggaran,kd_kegiatan,left(kd_rek5,3) as kode,(SELECT nm_rek3 from ms_rek3 where left(k.kd_rek5,3)=kd_rek3) as uraian, 0 as no,'' as tvolume,'' as tvolume_ubah, '' as satuan1, '' as satuan_ubah1, '' as harga1,'' as harga_ubah1,
-                              Nilai as total, Nilai_ubah as total_ubah FROM trdrka k where kd_kegiatan = '".$keg."' and tahun_anggaran = ".$ta." GROUP BY left(kd_rek5,3)
+                              Nilai as total, Nilai_ubah as total_ubah FROM trdrka k where kd_kegiatan = '".$keg."' and tahun_anggaran = ".$ta." GROUP BY left(kd_rek5,3),uraian
                              union all 
                              SELECT tahun_anggaran,kd_kegiatan,kd_rek5 as kode,uraian, no_po as no,
                              tvolume,tvolume_ubah,satuan1, satuan_ubah1, harga1,harga_ubah1,total,total_ubah FROM trdpo
@@ -1341,7 +1342,7 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
                             END AS tot_real_fisik
                          FROM trskpd a 
                         LEFT JOIN trdreal r on a.kd_kegiatan = r.kd_kegiatan and a.tahun_anggaran = r.tahun_anggaran
-                        where a.kd_skpd = '".$skpd."' and a.tahun_anggaran = ".$thn_anggaran." group by kd_program
+                        where a.kd_skpd = '".$skpd."' and a.tahun_anggaran = ".$thn_anggaran." group by kd_program,nm_program
                         union all
                         SELECT a.kd_kegiatan AS kode,nm_kegiatan as uraian,'K' as jns,a.tk_kel AS target,
                         (SELECT sum(".$ambilNilai.") from trdrka where kd_kegiatan = a.kd_kegiatan  and tahun_anggaran = a.tahun_anggaran) as nilai,sum(r.nilai_kontrak) as nilai_kontrak,
@@ -1363,11 +1364,11 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
                          FROM trskpd a 
                         LEFT JOIN trdreal r on a.kd_kegiatan = r.kd_kegiatan and a.tahun_anggaran = r.tahun_anggaran
                         
-                        where a.kd_skpd = '".$skpd."' and a.tahun_anggaran = ".$thn_anggaran." group by a.kd_kegiatan) a
+                        where a.kd_skpd = '".$skpd."' and a.tahun_anggaran = ".$thn_anggaran." group by a.kd_kegiatan,a.nm_kegiatan) a
                         
                         ORDER BY kode";
                                 
-                            //    print_r($query);die();
+                               
 								
 						
 					 
@@ -1386,6 +1387,7 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
 					foreach ($query->result() as $value)
 					{
                         $jns=$value->no;
+
                         if($sts_ubah == 'Murni'){
                             $target_keuangan 		= number_format($value->total,2,',','.');
                             $target_fisik 			= number_format($value->tvolume,0,',','.').' '.$value->satuan1;
@@ -1438,6 +1440,20 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
                         $distrik=$value->distrik;
                         $kampung=$value->kampung;
                         $koordinat=$value->koordinat;
+
+                        $cekKontrak = $this->db->get_where('trdreal_kontrak', array('tahun_anggaran' => $ta,'kd_kegiatan' => $keg,'kd_rek' => $kode,'no_po' => $jns))->result();	
+							$tot_kontrak_keg = 0;
+							$list_kontraktor = '';
+							$list_no_kontrak = '';
+	                    // $cRet .="<td colspan=\"7\" width=\"50%\" align=\"left\" style=\"font-size:8pt;border-top:none;\">";
+	                    foreach ($cekKontrak as $valKontrak) {
+	                        $tot_kontrak_keg = $tot_kontrak_keg + $valKontrak->nilai_kontrak;
+	                        $list_no_kontrak .= '&rarr;'.$valKontrak->no_kontrak.'<br>';
+	                        $list_kontraktor .= '&rarr;'.$valKontrak->kontraktor.'<br>';
+	                    }
+	                    $tot_kontrak_keg = number_format($tot_kontrak_keg,'2',',','.');
+
+
                         
                         // $jns=$value->no;
 						
@@ -1482,9 +1498,9 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
                                         <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">$real_keuangan</td>
 										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">$tot_persen_keuangan</td>
                                          <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">$bentuk</td>
-                                         <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">$nilai_kontrak</td>
-                                         <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"left\">$kontraktor</td>
-                                         <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"left\">$no_kontrak</td>
+                                         <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">$tot_kontrak_keg</td>
+                                         <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"left\">$list_kontraktor</td>
+                                         <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"left\">$list_no_kontrak</td>
                                          <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"left\">$distrik</td>
                                          <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"left\">$kampung</td>
                                          <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">$koordinat</td>
@@ -1836,7 +1852,7 @@ $dataGambar = $this->db->query($queryGambar)->result();
                         (SELECT sum(Nilai_Ubah) FROM trdrka where kd_kegiatan = '".$keg."' and tahun_anggaran = '".$ta."') as tot_target_keg_ubah,
                         bentuk,nilai_kontrak,kontraktor,no_kontrak,distrik,kampung,koordinat
                              FROM (SELECT tahun_anggaran,kd_kegiatan,left(kd_rek5,3) as kode,(SELECT nm_rek3 from ms_rek3 where left(k.kd_rek5,3)=kd_rek3) as uraian, 0 as no,'' as tvolume,'' as tvolume_ubah, '' as satuan1, '' as satuan_ubah1, '' as harga1,'' as harga_ubah1,
-                              Nilai as total, Nilai_ubah as total_ubah FROM trdrka k where kd_kegiatan = '".$keg."' and tahun_anggaran = ".$ta." GROUP BY left(kd_rek5,3)
+                              Nilai as total, Nilai_ubah as total_ubah FROM trdrka k where kd_kegiatan = '".$keg."' and tahun_anggaran = ".$ta." GROUP BY left(kd_rek5,3),uraian
                              union all 
                              SELECT tahun_anggaran,kd_kegiatan,kd_rek5 as kode,uraian, no_po as no,
                              tvolume,tvolume_ubah,satuan1, satuan_ubah1, harga1,harga_ubah1,total,total_ubah FROM trdpo
@@ -1915,6 +1931,18 @@ $dataGambar = $this->db->query($queryGambar)->result();
                         $distrik=$value->distrik;
                         $kampung=$value->kampung;
                         $koordinat=$value->koordinat;
+
+                        $cekKontrak = $this->db->get_where('trdreal_kontrak', array('tahun_anggaran' => $ta,'kd_kegiatan' => $keg,'kd_rek' => $kode,'no_po' => $jns))->result();	
+							$tot_kontrak_keg = 0;
+							$list_kontraktor = '';
+							$list_no_kontrak = '';
+	                    // $cRet .="<td colspan=\"7\" width=\"50%\" align=\"left\" style=\"font-size:8pt;border-top:none;\">";
+	                    foreach ($cekKontrak as $valKontrak) {
+	                        $tot_kontrak_keg = $tot_kontrak_keg + $valKontrak->nilai_kontrak;
+	                        $list_no_kontrak .= '&rarr;'.$valKontrak->no_kontrak.'<br>';
+	                        $list_kontraktor .= '&rarr;'.$valKontrak->kontraktor.'<br>';
+	                    }
+	                    $tot_kontrak_keg = number_format($tot_kontrak_keg,'2',',','.');
                         
                         // $jns=$value->no;
 						
@@ -1959,9 +1987,9 @@ $dataGambar = $this->db->query($queryGambar)->result();
                                         <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">$real_keuangan</td>
 										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">$tot_persen_keuangan</td>
                                          <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">$bentuk</td>
-                                         <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">$nilai_kontrak</td>
-                                         <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"left\">$kontraktor</td>
-                                         <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"left\">$no_kontrak</td>
+                                         <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">$tot_kontrak_keg</td>
+                                         <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"left\">$list_kontraktor</td>
+                                         <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"left\">$list_no_kontrak</td>
                                          <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"left\">$distrik</td>
                                          <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"left\">$kampung</td>
                                          <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">$koordinat</td>

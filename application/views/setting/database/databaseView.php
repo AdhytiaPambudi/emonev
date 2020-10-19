@@ -301,66 +301,95 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="review-content-section" style="height:450px;">
                                         <div id="dropzone1" class="pro-ad">
-                                        <div class="widget-program-bg" hidden>
+                                        <div class="widget-program-bg">
                                                     <div class="container-fluid">
                                                         <div class="row">
 
                                                             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                                                <div class="hpanel shadow-inner hbggreen bg-1 responsive-mg-b-30">
+                                                                <div class="hpanel shadow-inner hbgyellow bg-1 responsive-mg-b-30">
                                                                     <div class="panel-body">
+                                                                        <form id="form-anggaran" enctype="multipart/form-data" method="post">
                                                                         <div class="text-center content-bg-pro">
                                                                             <h3>Data Anggaran</h3>
-                                                                            <p class="text-big font-light">
-                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="bpddata" data-tbl="anggaran">My Data</button>
-                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="keudata" data-tbl="anggaran">Import</button>
-                                                                            </p>
-
-                                                                            <small id ="lastUpdateAnggaran">Terakhir Update : - </small>
+                                                                            <div class="file-upload-inner file-upload-inner-right ts-forms">
+                                                                                <div class="input append-small-btn">
+                                                                                    <div class="file-button">
+                                                                                        Browse
+                                                                                        <input type="file" id="file_anggaran" onchange="validateFormatXML(this,'nm_file_anggaran')" name="file_anggaran">
+                                                                                    </div>
+                                                                                    <input type="text" id="nm_file_anggaran" name="nm_file_anggaran" placeholder="File (.xml)" readonly="">
+                                                                                </div>
+                                                                            </div>
+                                                                            <hr>
+                                                                            <input type="submit"  value="Import" id="tf_anggaran" class="btn btn-success waves-effect waves-light">
                                                                         </div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                                                <div class="hpanel shadow-inner hbggreen bg-1 responsive-mg-b-30">
+                                                                <div class="hpanel shadow-inner hbgyellow bg-1 responsive-mg-b-30">
                                                                     <div class="panel-body">
+                                                                        <form id="form-rka" enctype="multipart/form-data" method="post">
                                                                         <div class="text-center content-bg-pro">
                                                                             <h3>Data RKA (Keu)</h3>
-                                                                            <p class="text-big font-light">
-                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="bpddata" data-tbl="rka">My Data</button>
-                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="keudata" data-tbl="rka">Import</button>
-                                                                            </p>
-                                                                            <small id ="lastUpdateRKA">Terakhir Update : - </small>
+                                                                            <div class="file-upload-inner file-upload-inner-right ts-forms">
+                                                                                <div class="input append-small-btn">
+                                                                                    <div class="file-button">
+                                                                                        Browse
+                                                                                        <input type="file" id="file_rka" onchange="validateFormatXML(this,'nm_file_rka')" name="file_rka">
+                                                                                    </div>
+                                                                                    <input type="text" id="nm_file_rka" name="nm_file_rka" placeholder="File (.xml)" readonly="">
+                                                                                </div>
+                                                                            </div>
+                                                                            <hr>
+                                                                            <input type="submit"  value="Import" id="tf_rka" class="btn btn-success waves-effect waves-light">
                                                                         </div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                                                <div class="hpanel shadow-inner hbggreen bg-1 responsive-mg-b-30">
+                                                                <div class="hpanel shadow-inner hbgyellow bg-1 responsive-mg-b-30">
                                                                     <div class="panel-body">
+                                                                        <form id="form-rincian" enctype="multipart/form-data" method="post">
                                                                         <div class="text-center content-bg-pro">
                                                                             <h3>Data Rincian</h3>
-                                                                            <p class="text-big font-light">
-                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="bpddata" data-tbl="rincian">My Data</button>
-                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="keudata" data-tbl="rincian">Import</button>
-                                                                            </p>
-
-                                                                            <small id ="lastUpdateRincian">Terakhir Update : - </small>
+                                                                            <div class="file-upload-inner file-upload-inner-right ts-forms">
+                                                                                <div class="input append-small-btn">
+                                                                                    <div class="file-button">
+                                                                                        Browse
+                                                                                        <input type="file" id="file_rincian" onchange="validateFormatXML(this,'nm_file_rincian')" name="file_rincian">
+                                                                                    </div>
+                                                                                    <input type="text" id="nm_file_rincian" name="nm_file_rincian" placeholder="File (.xml)" readonly="">
+                                                                                </div>
+                                                                            </div>
+                                                                            <hr>
+                                                                            <input type="submit"  value="Import" id="tf_rincian" class="btn btn-success waves-effect waves-light">
                                                                         </div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                                                <div class="hpanel shadow-inner hbggreen bg-1 responsive-mg-b-30">
+                                                                <div class="hpanel shadow-inner hbgyellow bg-1 responsive-mg-b-30">
                                                                     <div class="panel-body">
+                                                                        <form id="form-skpd" enctype="multipart/form-data" method="post">
                                                                         <div class="text-center content-bg-pro">
                                                                             <h3>Data SKPD</h3>
-                                                                            <p class="text-big font-light">
-                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="bpddata" data-tbl="skpd">My Data</button>
-                                                                                <button class="btn btn-warning widget-btn-4 btn-sm check-data" data-db="keudata" data-tbl="skpd">Import</button>
-                                                                            </p>
-
-                                                                            <small id ="lastUpdateSKPD">Terakhir Update : - </small>
+                                                                            <div class="file-upload-inner file-upload-inner-right ts-forms">
+                                                                                <div class="input append-small-btn">
+                                                                                    <div class="file-button">
+                                                                                        Browse
+                                                                                        <input type="file" id="file_skpd" onchange="validateFormatXML(this,'nm_file_skpd')" name="file_skpd">
+                                                                                    </div>
+                                                                                    <input type="text" id="nm_file_skpd" name="nm_file_skpd" placeholder="File (.xml)" readonly="">
+                                                                                </div>
+                                                                            </div>
+                                                                            <hr>
+                                                                            <input type="submit"  value="Import" id="tf_skpd" class="btn btn-success waves-effect waves-light">
                                                                         </div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -756,6 +785,41 @@
             
     
     });
+
+    $('#form-anggaran').submit(function(e) {
+        var text = $('#nm_file_anggaran').val();
+        if (text == '') {
+            alert('HARAP PILIH FILE');
+            e.preventDefault();
+            exit();
+        
+        }else{
+
+            $('#tf_anggaran').val('Sedang Diporses...');
+            $('#tf_anggaran').attr('disabled',true);
+
+            $.ajax({
+            method: 'POST',
+            url: '<?php echo base_url('transfer-anggaran'); ?>',
+            data: new FormData(this),
+            contentType:false,
+            cache : false,
+            processData:false,
+          })
+          .done(function(data) {
+            var out = jQuery.parseJSON(data);
+            alert(out.pesan);
+            var inputFile = $("#file_anggaran");
+            inputFile.replaceWith(inputFile.val('').clone(true));
+            $("#nm_file_anggaran").val('');
+            $('#tf_anggaran').val('Import');
+            $('#tf_anggaran').removeAttr('disabled');
+          })
+          e.preventDefault();
+        }
+         e.preventDefault();
+    });
+
 
 
     $('#form-tapd').submit(function(e) {

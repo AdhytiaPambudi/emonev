@@ -58,6 +58,11 @@ $route['backup-database'] 							= 'setting/DatabaseController/backup';
 $route['restore-database'] 							= 'setting/DatabaseController/restore';
 $route['download-database'] 						= 'setting/DatabaseController/download';
 
+$route['transfer-anggaran'] 							= 'setting/DatabaseController/transfer_anggaran';
+$route['transfer-rka'] 							= 'setting/DatabaseController/transfer_rka';
+$route['transfer-rincian'] 							= 'setting/DatabaseController/transfer_rincian';
+$route['transfer-skpd'] 								= 'setting/DatabaseController/transfer_skpd';
+
 $route['transfer-fungsi'] 							= 'setting/DatabaseController/transfer_fungsi';
 $route['transfer-urusan'] 							= 'setting/DatabaseController/transfer_urusan';
 $route['transfer-tapd'] 							= 'setting/DatabaseController/transfer_tapd';

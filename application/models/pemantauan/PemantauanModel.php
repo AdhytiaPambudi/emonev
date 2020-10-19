@@ -1376,26 +1376,43 @@
 				$vol = 'tvolume_ubah';
 			}
 
-			$sql = "SELECT jml.tahun_anggaran,jml.kd_skpd,jml.nm_skpd, jml.anggaran as angJML,jml.realisasi as realJML, jml.persenKeu as keuJML, jml.persenFis as fisJML 
-			FROM(
-			SELECT s.tahun_anggaran,s.kd_skpd,s.nm_skpd, sum(dau.$nilai) as anggaran,SUM(dau.real_keuangan) as realisasi, 
-			(sum(dau.real_keuangan)/sum(dau.$nilai))*100 as persenKeu,(SUM(dau.persenFisik)/COUNT(dau.ta)) as persenFis 
-			FROM ms_skpd s 
-			LEFT JOIN ( SELECT ak.ta, ak.kd_skpd,ak.nm_skpd,ak.kd_program,ak.nm_program,ak.kd_kegiatan,ak.nm_kegiatan,
-									ak.kd_rek5,ak.nm_rek5, p.no_po,p.uraian,p.tvolume,p.satuan1,p.tvolume_ubah,p.satuan_ubah1,p.harga1,
-									p.harga_ubah1,p.total,p.total_ubah,GREATEST(fisik1,fisik2,fisik3,fisik4) as real_fisik, GREATEST(keuangan1,keuangan2,keuangan3,keuangan4) as real_keuangan,
-									(GREATEST(keuangan1,keuangan2,keuangan3,keuangan4)/p.$nilai)* 100 as persenKeuangan, (GREATEST(fisik1,fisik2,fisik3,fisik4)/p.tvolume)* 100 as persenFisik, ak.nm_sumberdana 
-									FROM anggarankegiatan ak INNER JOIN trdpo p on ak.ta = p.tahun_anggaran and ak.kd_kegiatan = p.kd_kegiatan
-									and ak.kd_rek5 = p.kd_rek5 LEFT JOIN trdreal r on r.tahun_anggaran = p.tahun_anggaran and
-									r.kd_kegiatan = p.kd_kegiatan AND r.kd_rekening = p.kd_rek5 AND r.no_rinci = p.no_po 
-									WHERE p.$vol <> 0 and ak.nm_sumberdana in (SELECT nm_sumberdana FROM mapping_sd 
-									WHERE thn_anggaran = $thn and sts_anggaran = '$stsAng' and kd_group_sd in(1,2,3,4,5,6,7)) and ak.ta = $thn)
-									dau ON s.kd_skpd = dau.kd_skpd AND s.tahun_anggaran = dau.ta GROUP BY s.tahun_anggaran,s.kd_skpd,s.nm_skpd)jml ;";
+			// $sql_old = "SELECT jml.tahun_anggaran,jml.kd_skpd,jml.nm_skpd, jml.anggaran as angJML,jml.realisasi as realJML, jml.persenKeu as keuJML, jml.persenFis as fisJML 
+			// FROM(
+			// SELECT s.tahun_anggaran,s.kd_skpd,s.nm_skpd, sum(dau.$nilai) as anggaran,SUM(dau.real_keuangan) as realisasi, 
+			// (sum(dau.real_keuangan)/sum(dau.$nilai))*100 as persenKeu,(SUM(dau.persenFisik)/COUNT(dau.ta)) as persenFis 
+			// FROM ms_skpd s 
+			// LEFT JOIN ( SELECT ak.ta, ak.kd_skpd,ak.nm_skpd,ak.kd_program,ak.nm_program,ak.kd_kegiatan,ak.nm_kegiatan,
+			// 						ak.kd_rek5,ak.nm_rek5, p.no_po,p.uraian,p.tvolume,p.satuan1,p.tvolume_ubah,p.satuan_ubah1,p.harga1,
+			// 						p.harga_ubah1,p.total,p.total_ubah,GREATEST(fisik1,fisik2,fisik3,fisik4) as real_fisik, GREATEST(keuangan1,keuangan2,keuangan3,keuangan4) as real_keuangan,
+			// 						(GREATEST(keuangan1,keuangan2,keuangan3,keuangan4)/p.$nilai)* 100 as persenKeuangan, (GREATEST(fisik1,fisik2,fisik3,fisik4)/p.tvolume)* 100 as persenFisik, ak.nm_sumberdana 
+			// 						FROM anggarankegiatan ak INNER JOIN trdpo p on ak.ta = p.tahun_anggaran and ak.kd_kegiatan = p.kd_kegiatan
+			// 						and ak.kd_rek5 = p.kd_rek5 LEFT JOIN trdreal r on r.tahun_anggaran = p.tahun_anggaran and
+			// 						r.kd_kegiatan = p.kd_kegiatan AND r.kd_rekening = p.kd_rek5 AND r.no_rinci = p.no_po 
+			// 						WHERE p.$vol <> 0 and ak.nm_sumberdana in (SELECT nm_sumberdana FROM mapping_sd 
+			// 						WHERE thn_anggaran = $thn and sts_anggaran = '$stsAng' and kd_group_sd in(1,2,3,4,5,6,7)) and ak.ta = $thn)
+			// 						dau ON s.kd_skpd = dau.kd_skpd AND s.tahun_anggaran = dau.ta GROUP BY s.tahun_anggaran,s.kd_skpd,s.nm_skpd)jml;";
 
 			
-			
+			$sql = "SELECT ta as tahun_anggaran,kd_skpd,(SELECT nm_skpd FROM ms_skpd WHERE b.kd_skpd = kd_skpd AND b.ta = tahun_anggaran) as nm_skpd,
+			sum(b.$nilai) as angJML,SUM(b.real_keuangan) as realJML, 
+			(sum(b.real_keuangan)/sum(b.$nilai))*100 as keuJML,(SUM(b.persenFisik)/COUNT(b.ta)) as fisJML 
+					 FROM 
+					(SELECT ak.ta, ak.kd_skpd,ak.nm_skpd,p.tvolume,p.tvolume_ubah,p.total,p.total_ubah,
+					GREATEST(fisik1,fisik2,fisik3,fisik4) as real_fisik,
+					GREATEST(keuangan1,keuangan2,keuangan3,keuangan4) as real_keuangan,
+					(GREATEST(keuangan1,keuangan2,keuangan3,keuangan4)/p.$nilai)* 100 as persenKeuangan,
+					(GREATEST(fisik1,fisik2,fisik3,fisik4)/p.$vol)* 100 as persenFisik
+					FROM anggarankegiatan ak 
+					INNER JOIN trdpo p on ak.ta = p.tahun_anggaran and ak.kd_kegiatan = p.kd_kegiatan and ak.kd_rek5 = p.kd_rek5 
+					LEFT JOIN trdreal r on r.tahun_anggaran = p.tahun_anggaran and r.kd_kegiatan = p.kd_kegiatan AND r.kd_rekening = p.kd_rek5 AND r.no_rinci = p.no_po 
+					WHERE p.$vol <> 0 
+								and ak.nm_sumberdana in (SELECT nm_sumberdana FROM mapping_sd 
+									WHERE thn_anggaran = $thn and sts_anggaran = '$stsAng' and kd_group_sd in(1,2,3,4,5,6,7))
+								and ak.ta = $thn) b GROUP BY b.kd_skpd
+					ORDER BY b.kd_skpd asc";
+
 			$data = $this->db->query($sql)->result_array();
-			
+
 
 			$dataTopKeu = $data;
 			$dataBotKeu = $data;

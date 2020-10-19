@@ -254,6 +254,7 @@
 
 		public function transfer_anggaran()
 		{
+			$tahun = $this->session->userdata('thn_ang');
 
 			$files = $_FILES['file_anggaran'];  			
 			$folder		= 'database/transfer/';
@@ -307,70 +308,69 @@
 							'kd_kegiatan1'	=>$value->kd_kegiatan1,
 							'nm_kegiatan'	=>$value->nm_kegiatan,
 							'jns_kegiatan'	=>$value->jns_kegiatan,
-							'kd_program1'		=>$value->kd_program1,
-							'nm_program'		=>$value->nm_program,
+							'kd_program1'	=>$value->kd_program1,
+							'nm_program'	=>$value->nm_program,
 							'indika'		=>$value->indika,
-							'tu'		=>$value->tu,
-							'tk'		=>$value->tk,
-							'sasaran_giat'		=>$value->sasaran_giat,
-							'sumber_dana'		=>$value->sumber_dana,
+							'tu'			=>$value->tu,
+							'tk'			=>$value->tk,
+							'sasaran_giat'	=>$value->sasaran_giat,
+							'sumber_dana'	=>$value->sumber_dana,
 							'sumber_dana_ubah'		=>$value->sumber_dana_ubah,
-							'waktu_giat'		=>$value->waktu_giat,
+							'waktu_giat'	=>$value->waktu_giat,
 							'tk_kwt'		=>$value->tk_kwt,
 							'kd_pptk'		=>$value->kd_pptk,
 							'kd_comp'		=>$value->kd_comp,
 							'kontrak'		=>$value->kontrak,
 							'jns_keg'		=>$value->jns_keg,
-							
 							'tu_capai'		=>$value->tu_capai,
-							'tu_capai_ubah'		=>$value->tu_capai_ubah,
+							'tu_capai_ubah'	=>$value->tu_capai_ubah,
 							'tu_mas'		=>$value->tu_mas,
-							'tu_mas_ubah'		=>$value->tu_mas_ubah,
+							'tu_mas_ubah'	=>$value->tu_mas_ubah,
 							'tu_kel'		=>$value->tu_kel,
-							'tu_kel_ubah'		=>$value->tu_kel_ubah,
+							'tu_kel_ubah'	=>$value->tu_kel_ubah,
 							'tu_has'		=>$value->tu_has,
-							'tu_has_ubah'		=>$value->tu_has_ubah,
+							'tu_has_ubah'	=>$value->tu_has_ubah,
 
 							'tk_capai'		=>$value->tk_capai,
-							'tk_capai_ubah'		=>$value->tk_capai_ubah,
+							'tk_capai_ubah'	=>$value->tk_capai_ubah,
 							'tk_mas'		=>$value->tk_mas,
-							'tk_mas_ubah'		=>$value->tk_mas_ubah,
+							'tk_mas_ubah'	=>$value->tk_mas_ubah,
 							'tk_kel'		=>$value->tk_kel,
-							'tk_kel_ubah'		=>$value->tk_kel_ubah,
+							'tk_kel_ubah'	=>$value->tk_kel_ubah,
 							'tk_has'		=>$value->tk_has,
-							'tk_has_ubah'		=>$value->tk_has_ubah,
+							'tk_has_ubah'	=>$value->tk_has_ubah,
 
 							'alasan'		=>$value->alasan,
 							'UserName'		=>$value->UserName,
-							'latar_belakang'		=>$value->latar_belakang,
-							'triw1'		=>$value->triw1,
-							'triw2'		=>$value->triw2,
-							'triw3'		=>$value->triw3,
-							'triw4'		=>$value->triw4,
-							'total'		=>$value->total,
+							'latar_belakang'=>$value->latar_belakang,
+							'triw1'			=>$value->triw1,
+							'triw2'			=>$value->triw2,
+							'triw3'			=>$value->triw3,
+							'triw4'			=>$value->triw4,
+							'total'			=>$value->total,
 
-							'triw1_ubah'		=>$value->triw1_ubah,
-							'triw2_ubah'		=>$value->triw2_ubah,
-							'triw3_ubah'		=>$value->triw3_ubah,
-							'triw4_ubah'		=>$value->triw4_ubah,
-							'total_ubah'		=>$value->total_ubah,
+							'triw1_ubah'	=>$value->triw1_ubah,
+							'triw2_ubah'	=>$value->triw2_ubah,
+							'triw3_ubah'	=>$value->triw3_ubah,
+							'triw4_ubah'	=>$value->triw4_ubah,
+							'total_ubah'	=>$value->total_ubah,
 
 							'lokasi'		=>$value->lokasi,
-							'kd_lokasi2'		=>$value->kd_lokasi2,
+							'kd_lokasi2'	=>$value->kd_lokasi2,
 							'sumber'		=>$value->sumber,
 							'lanjut'		=>$value->lanjut,
-							'user'		=>$value->user,
-							'tgl_update'		=>$value->tgl_update,
-							'ur'		=>$value->ur,
-							'k_ur'		=>$value->k_ur,
-							'file'		=>$value->file,
-							'tahun_anggaran'		=>$value->tahun_anggaran,
+							'user'			=>$value->user,
+							'tgl_update'	=>$value->tgl_update,
+							'ur'			=>$value->ur,
+							'k_ur'			=>$value->k_ur,
+							'file'			=>$value->file,
+							'tahun_anggaran'=>$tahun,
 
 
 
 							);
-				$this->db->insert('trskpd',$data);
-				print_r($this->db->error());die();
+				$this->db->insert_batch('trskpd',$data);
+				
 				$i++;
 			}
 			$res['pesan'] = $i . ' Data Berhasil DiTransfer';
