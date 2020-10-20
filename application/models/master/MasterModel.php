@@ -403,7 +403,7 @@ GROUP BY a.sumber;";
 
 	    private function _get_all_pk_bidang_query($whereskpd)
 	    {
-	    	$this->db->select('m.kd_urusan,m.nm_urusan,sum(total) as pagu, sum(total_ubah) as pagu_ubah');
+	    	$this->db->select('t.kd_urusan,m.nm_urusan,sum(total) as pagu, sum(total_ubah) as pagu_ubah');
 	        $this->db->where('kd_skpd',$whereskpd);
 	        $this->db->from('trskpd t');
 	    	$this->db->join('ms_urusan m', 'm.kd_urusan = t.kd_urusan');
@@ -430,7 +430,7 @@ GROUP BY a.sumber;";
 	            }
 	            $i++;
 	        }
-	         $this->db->group_by("t.kd_urusan"); 
+	         $this->db->group_by(array("t.kd_urusan", "m.nm_urusan")); 
 	        if(isset($_POST['order'])) 
 	        {
 	            $this->db->order_by($this->column_order_bidang[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
@@ -500,7 +500,8 @@ GROUP BY a.sumber;";
 	            }
 	            $i++;
 	        }
-	         $this->db->group_by("t.kd_program"); 
+	         // $this->db->group_by("t.kd_program"); 
+	         $this->db->group_by(array("t.kd_urusan", "t.kd_program","t.kd_program1","t.nm_program")); 
 	        if(isset($_POST['order'])) 
 	        {
 	            $this->db->order_by($this->column_order_bidang[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
@@ -571,7 +572,8 @@ GROUP BY a.sumber;";
 	            }
 	            $i++;
 	        }
-	         $this->db->group_by("t.kd_kegiatan"); 
+	         // $this->db->group_by("t.kd_kegiatan"); 
+	        $this->db->group_by(array("t.kd_kegiatan","t.kd_kegiatan1","t.nm_kegiatan")); 
 	        if(isset($_POST['order'])) 
 	        {
 	            $this->db->order_by($this->column_order_bidang[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
