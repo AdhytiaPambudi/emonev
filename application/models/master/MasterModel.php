@@ -101,25 +101,25 @@
 			if($akses == 1){
 				$skpd = $this->session->userdata('id_skpd');
 				$query="SELECT a.sumber,a.tahun_anggaran,m.* FROM trdrka a 
-LEFT JOIN (
-SELECT a.*,b.nm_group_sd FROM mapping_sd a inner JOIN ms_group_sd b on a.kd_group_sd = b.kd_group_sd  where a.sts_anggaran = '".$sts."'
-) m on a.sumber = m.nm_sumberdana and a.tahun_anggaran = m.thn_anggaran WHERE a.tahun_anggaran = ".$ta."
-GROUP BY a.sumber;";
+						LEFT JOIN (
+						SELECT a.*,b.nm_group_sd FROM mapping_sd a inner JOIN ms_group_sd b on a.kd_group_sd = b.kd_group_sd  where a.sts_anggaran = '".$sts."'
+						) m on a.sumber = m.nm_sumberdana and a.tahun_anggaran = m.thn_anggaran WHERE a.tahun_anggaran = ".$ta."
+						GROUP BY a.sumber,m.kd_map;";
 			}else if($akses == 3){
 				$skpd = $this->session->userdata('id_skpd');
 				$arrSKPD = $this->PublicModel->skpdByBidang($skpd);
 				$query="SELECT a.sumber,a.tahun_anggaran,m.* FROM trdrka a 
-LEFT JOIN (
-SELECT a.*,b.nm_group_sd FROM mapping_sd a inner JOIN ms_group_sd b on a.kd_group_sd = b.kd_group_sd
-) m on a.sumber = m.nm_sumberdana and a.tahun_anggaran = m.thn_anggaran WHERE a.tahun_anggaran = ".$ta."
-GROUP BY a.sumber;";
+						LEFT JOIN (
+						SELECT a.*,b.nm_group_sd FROM mapping_sd a inner JOIN ms_group_sd b on a.kd_group_sd = b.kd_group_sd
+						) m on a.sumber = m.nm_sumberdana and a.tahun_anggaran = m.thn_anggaran WHERE a.tahun_anggaran = ".$ta."
+						GROUP BY a.sumber;";
 			}else{
 				$skpd = $this->session->userdata('id_skpd');
 				$query="SELECT a.sumber,a.tahun_anggaran,m.* FROM trdrka a 
-LEFT JOIN (
-SELECT a.*,b.nm_group_sd FROM mapping_sd a inner JOIN ms_group_sd b on a.kd_group_sd = b.kd_group_sd
-) m on a.sumber = m.nm_sumberdana and a.tahun_anggaran = m.thn_anggaran WHERE a.tahun_anggaran = ".$ta."
-GROUP BY a.sumber;";
+						LEFT JOIN (
+						SELECT a.*,b.nm_group_sd FROM mapping_sd a inner JOIN ms_group_sd b on a.kd_group_sd = b.kd_group_sd
+						) m on a.sumber = m.nm_sumberdana and a.tahun_anggaran = m.thn_anggaran WHERE a.tahun_anggaran = ".$ta."
+						GROUP BY a.sumber;";
 			}
 			
 			$data = $this->db->query($query)->result();
@@ -162,7 +162,7 @@ GROUP BY a.sumber;";
 						LEFT JOIN (
 						SELECT a.*,b.nm_group_sd FROM mapping_sd a inner JOIN ms_group_sd b on a.kd_group_sd = b.kd_group_sd  where a.sts_anggaran = '".$sts."'
 						) m on a.sumber_ubah = m.nm_sumberdana and a.tahun_anggaran = m.thn_anggaran WHERE a.tahun_anggaran = ".$ta."
-						GROUP BY a.sumber_ubah;";
+						GROUP BY a.sumber_ubah,m.kd_map;";
 				
 			
 
