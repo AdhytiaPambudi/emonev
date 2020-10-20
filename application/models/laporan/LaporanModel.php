@@ -221,6 +221,8 @@
         {   
         	ini_set('max_execution_time', 0); 
             ini_set('memory_limit','2048M');
+            ini_set('post_max_size','200M');
+			ini_set('upload_max_filesize','200M');
         	$_sd = $_GET['sd'];
         	$spacing = $_GET['spacing'];
         	
@@ -1588,10 +1590,12 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
                             }
                     $cRet .="</td>";
 
-                    $queryGambar = "SELECT tahun_anggaran,kd_kegiatan,kd_rek,no_po,file FROM trdreal_lamp r where r.tahun_anggaran = '".$thn_anggaran."' and r.kd_kegiatan = '".$keg."' 
-group by tahun_anggaran,kd_kegiatan,kd_rek,no_po
-order by kd_lamp desc;";
-$dataGambar = $this->db->query($queryGambar)->result();
+                    $queryGambar = "SELECT tahun_anggaran,kd_kegiatan,kd_rek,no_po,kd_lamp,file FROM trdreal_lamp r 
+                    				where r.tahun_anggaran = '".$thn_anggaran."' and r.kd_kegiatan = '".$keg."' 
+									GROUP BY tahun_anggaran,kd_kegiatan,kd_rek,no_po,kd_lamp,file 
+									order by kd_lamp desc;";
+
+					$dataGambar = $this->db->query($queryGambar)->result();
                     $cRet .="<td colspan=\"7\" width=\"50%\" align=\"left\" style=\"font-size:8pt;border-top:none;\">";
                     foreach ($dataGambar as $gambar) {
                         $file = $gambar->file;

@@ -638,7 +638,7 @@
 								'' AS triw4,
 								'' AS jumlah 
 								FROM trskpd a LEFT JOIN trdrka c ON c.kd_kegiatan=a.kd_kegiatan
-								WHERE RIGHT(a.kd_program,2)<>'00' AND a.kd_skpd = '$id' GROUP BY a.kd_program
+								WHERE RIGHT(a.kd_program,2)<>'00' AND a.kd_skpd = '$id' GROUP BY a.kd_program,a.nm_program
 								UNION 
 								SELECT a.kd_program AS prog,' ' AS prog1,a.kd_kegiatan AS giat,a.nm_kegiatan AS uraian, a.lokasi AS lokasi,a.tk_kel AS target,GROUP_CONCAT(DISTINCT c.sumber) AS sumber,
 								(SELECT sum(nilai)/4 AS nilai FROM trdrka WHERE  kd_kegiatan = a.kd_kegiatan) AS triw1,
@@ -647,8 +647,11 @@
 								(SELECT sum(nilai)/4 AS nilai FROM trdrka WHERE  kd_kegiatan = a.kd_kegiatan) AS triw4,
 								(SELECT SUM(nilai) AS nilai FROM trdrka WHERE kd_kegiatan = a.kd_kegiatan ) AS jumlah 
 								FROM trskpd a LEFT JOIN trdrka c ON c.kd_kegiatan=a.kd_kegiatan 
-								WHERE RIGHT(a.kd_program,2)<>'00' AND a.kd_skpd = '$id' GROUP BY a.kd_kegiatan,a.lokasi,giat
+								WHERE RIGHT(a.kd_program,2)<>'00' AND a.kd_skpd = '$id' 
+								GROUP BY a.kd_program,a.kd_kegiatan,a.nm_kegiatan,a.lokasi,a.tk_kel,giat
 								) a ORDER BY urut, a.prog,a.giat";
+
+						// print_r($sql1);die();
 								
 						
 					 
@@ -837,7 +840,12 @@
 					INNER JOIN trdrka d ON a.kd_kegiatan=d.kd_kegiatan
 					INNER JOIN ms_skpd e ON a.kd_skpd=e.kd_skpd
 					INNER JOIN ms_urusan f ON a.kd_urusan=f.kd_urusan WHERE a.kd_kegiatan='$giat'
-					GROUP BY a.kd_skpd, a.kd_kegiatan";
+					GROUP BY f.kd_urusan,f.nm_urusan,a.kd_skpd,a.kd_program,
+					a.nm_program,a.kd_kegiatan,a.nm_kegiatan,
+					a.tu_capai,a.tu_mas,a.tu_kel,a.tu_has, a.tk_capai,a.tk_mas,a.tk_kel,a.tk_has,a.lokasi,
+					a.sasaran_giat,a.waktu_giat
+					";
+
 					
 					 $sqlorg1=$this->db->query($sqlorg);
 					 foreach ($sqlorg1->result() as $roworg)
@@ -1187,14 +1195,14 @@
 							</td>
 						</tr>
 					</table>";
-			$cRet .= "<table style=\"border-collapse:collapse;\" width=\"100%\" align=\"center\" border=\"1\" cellspacing=\"0\" cellpadding=\"4\">
+			$cRet .= "<table style=\"border-collapse:collapse;font-size:8pt;\" width=\"100%\" align=\"center\" border=\"1\" cellspacing=\"0\" cellpadding=\"4\">
 						 <thead>                       
-							<tr><td rowspan=\"2\" bgcolor=\"#CCCCCC\" width=\"10%\" align=\"center\"><b>Program</b></td>                            
-								<td rowspan=\"2\" bgcolor=\"#CCCCCC\" width=\"10%\" align=\"center\"><b>kegiatan</b></td>
-								<td rowspan=\"2\" bgcolor=\"#CCCCCC\" width=\"20%\" align=\"center\"><b>Uraian</b></td>
-								<td rowspan=\"2\" bgcolor=\"#CCCCCC\" width=\"8%\" align=\"center\"><b>Lokasi Kegiatan</b></td>
-								<td rowspan=\"2\" bgcolor=\"#CCCCCC\" width=\"8%\" align=\"center\"><b>Target Kinerja</b></td>
-								<td rowspan=\"2\" bgcolor=\"#CCCCCC\" width=\"8%\" align=\"center\"><b>Sumber Dana</b></td>
+							<tr><td rowspan=\"2\" bgcolor=\"#CCCCCC\" width=\"12%\" align=\"center\"><b>Program</b></td>                            
+								<td rowspan=\"2\" bgcolor=\"#CCCCCC\" width=\"18%\" align=\"center\"><b>kegiatan</b></td>
+								<td rowspan=\"2\" bgcolor=\"#CCCCCC\" width=\"15%\" align=\"center\"><b>Uraian</b></td>
+								<td rowspan=\"2\" bgcolor=\"#CCCCCC\" width=\"7%\" align=\"center\"><b>Lokasi Kegiatan</b></td>
+								<td rowspan=\"2\" bgcolor=\"#CCCCCC\" width=\"7%\" align=\"center\"><b>Target Kinerja</b></td>
+								<td rowspan=\"2\" bgcolor=\"#CCCCCC\" width=\"7%\" align=\"center\"><b>Sumber Dana</b></td>
 								<td colspan=\"2\" bgcolor=\"#CCCCCC\" width=\"20%\" align=\"center\"><b>Jumlah (Rp)</b></td>
 								<td colspan=\"2\" bgcolor=\"#CCCCCC\" width=\"16%\" align=\"center\"><b>Bertambah/(Berkurang)</b></td>
 							</tr>
@@ -1227,14 +1235,18 @@
 							(SELECT SUM(nilai) AS nilai FROM trdrka WHERE  LEFT(kd_kegiatan,LENGTH(a.kd_program))= a.kd_program) AS jumlah ,
 							(SELECT SUM(nilai_ubah) AS nilai FROM trdrka WHERE  LEFT(kd_kegiatan,LENGTH(a.kd_program))= a.kd_program) AS jumlah_u 
 							FROM trskpd a LEFT JOIN trdrka c ON c.kd_kegiatan=a.kd_kegiatan 
-							WHERE RIGHT(a.kd_program,2)<>'00' AND a.kd_skpd = '$id' GROUP BY a.kd_program
+							WHERE RIGHT(a.kd_program,2)<>'00' AND a.kd_skpd = '$id' GROUP BY a.kd_program,a.nm_program
 							UNION 
 							SELECT a.kd_program AS prog,' ' AS prog1,a.kd_kegiatan AS giat,a.nm_kegiatan AS uraian, a.lokasi AS lokasi,a.tk_kel_ubah AS target,c.sumber_ubah AS sumber,
 							(SELECT SUM(nilai) AS nilai FROM trdrka WHERE kd_kegiatan = a.kd_kegiatan ) AS jumlah ,
 							(SELECT SUM(nilai_ubah) AS nilai FROM trdrka WHERE kd_kegiatan = a.kd_kegiatan ) AS jumlah_u
 							FROM trskpd a LEFT JOIN trdrka c ON c.kd_kegiatan=a.kd_kegiatan 
-							WHERE RIGHT(a.kd_program,2)<>'00' AND a.kd_skpd = '$id' GROUP BY a.kd_kegiatan)
+							WHERE RIGHT(a.kd_program,2)<>'00' AND a.kd_skpd = '$id' 
+							GROUP BY a.kd_program,a.kd_kegiatan,a.nm_kegiatan,a.lokasi,a.tk_kel_ubah,c.sumber_ubah,giat
+							)
 							a ORDER BY a.prog,a.giat";
+
+
 					 
 					 $query = $this->db->query($sql1);
 					 //$query = $this->skpd_model->getAllc();
@@ -1273,8 +1285,8 @@
 										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" ><b>$giat</b></td>
 										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" ><b>$uraian</b></td>
 										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" ><b>$lokasi</b></td>
-										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\"><b>$target</b></td>
-										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\"><b>$sumber</b></td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\"><b>$target</b></td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\"><b>$sumber</b></td>
 										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\"><b>$nilai</b></td>
 										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\"><b>$nilai_u</b></td>
 										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\"><b>$x1$n_selisih$y1</b></td>
@@ -1288,8 +1300,8 @@
 										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" >$giat</td>
 										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" >$uraian</td>
 										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" >$lokasi</td>
-										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">$target</td>
-										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">$sumber</td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">$target</td>
+										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">$sumber</td>
 										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">$nilai</td>
 										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">$nilai_u</td>
 										 <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"right\">$x1$n_selisih$y1</td>
@@ -1695,7 +1707,15 @@
 					INNER JOIN trdrka d ON a.kd_kegiatan=d.kd_kegiatan
 					INNER JOIN ms_skpd e ON a.kd_skpd=e.kd_skpd
 					INNER JOIN ms_urusan f ON a.kd_urusan=f.kd_urusan where a.kd_kegiatan='$giat'
-					GROUP BY a.kd_skpd";
+					-- GROUP BY a.kd_skpd
+					GROUP BY
+					f.kd_urusan,f.nm_urusan,a.kd_skpd,a.kd_program,a.nm_program,a.nm_kegiatan,a.tu_capai_ubah,
+					a.tu_mas_ubah,a.tu_kel_ubah,a.tu_has_ubah, a.tk_capai_ubah,a.tk_mas_ubah,a.tk_kel_ubah,a.tk_has_ubah,a.lokasi,d.sumber_ubah,
+					a.sasaran_giat,a.waktu_giat,
+					a.tu_capai,a.tu_mas,a.tu_kel,a.tu_has,a.tk_capai,a.tk_mas,a.tk_kel,a.tk_has 
+
+					";
+					
 					 $sqlorg1=$this->db->query($sqlorg);
 					 $joss=0;
 					 foreach ($sqlorg1->result() as $roworg)

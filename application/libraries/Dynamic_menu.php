@@ -162,24 +162,22 @@ class Dynamic_menu {
                     {
                         $ql     = "SELECT *, CASE WHEN parent_id > 0 THEN (select parent_id from m_menu a where a.id = b.id) 
                                   ELSE 0 END AS baseP FROM m_menu b WHERE url = '".$this->ci->uri->segment(1)."'";
-                                  
-                                  
+
 						$qry 	= $this->ci->db->query($ql)->row();
-                        
 						
 						$pClass 	= ( ($qry->baseP > 0 && $qry->baseP == $menu[$i]['id']) || ($qry->baseP == 0 && $qry->parent_id == $menu[$i]['id'])) ? "active" : ""; 
 						$collapseP 	= ( ($qry->baseP > 0 && $qry->baseP == $menu[$i]['id']) || ($qry->baseP == 0 && $qry->parent_id == $menu[$i]['id'])) ? "open" 	: ""; 
                         $collapse 	= ( ($qry->baseP > 0 && $qry->baseP == $menu[$i]['id'])) ? "open" 	: ""; 
                         // vdebug($collapse);
                         // $html_out .= '<li class="'.$pClass.'has-sub'.$collapse.'"><a href="'.base_url().$menu[$i]['url'].'"><span>'.$menu[$i]['title'].'</span></a>';
-                        $html_out .= '<li><a href="#" class="has-arrow"><span class="'.$menu[$i]['icon'].'"></span><span class="mini-click-non"> '.$menu[$i]['title'].'</span></a>';
+                        $html_out .= '<li class="'.$pClass.'" style="border-top:0.5px solid #ccc;margin:0px;"><a style="font-size:10pt;" href="#" class="has-arrow '.$pClass.'"><span class="'.$menu[$i]['icon'].'"></span><span class="mini-click-non"> '.$menu[$i]['title'].'</span></a>';
                         $html_out .= $this->get_childs($menu, $i, $collapseP, $collapse);
                         $html_out .= '</li>'."\n";
                     }
                     else {
                         // $html_out .= "\t\t\t\t".'<li>'.anchor($menu[$i]['url'], '<span>'.$menu[$i]['title'].'</span>');
                         $sel        = ($this->ci->uri->segment(1)==$menu[$i]['url']) ? "active" : "";
-                        $html_out .= '<li class="'.$sel.'"><a href="'.base_url().$menu[$i]['url'].'" aria-expanded="false"  aria-hidden="true"><span class="'.$menu[$i]['icon'].'"></span><span class="mini-click-non"> '.$menu[$i]['title'].'</span></a>';
+                        $html_out .= '<li class="'.$pClass.'" style="border-top:0.5px solid #ccc;margin:0px;"><a style="font-size:10pt;" class="'.$pClass.'" href="'.base_url().$menu[$i]['url'].'" aria-expanded="false"  aria-hidden="true"><span class="'.$menu[$i]['icon'].'"></span><span class="mini-click-non"> '.$menu[$i]['title'].'</span></a>';
                         $html_out .= '</li>'."\n";
                     }
                     // loop through and build all the child submenus.
@@ -338,6 +336,7 @@ class Dynamic_menu {
             if ($menu[$i]['show'] && $menu[$i]['parent'] == $parent_id)    // are we allowed to see this menu?
             {
 				$pClass 	= ($this->ci->uri->segment(1)==$menu[$i]['url']) ? "active" 	: "";
+
 				// $collapseP 	= ($this->ci->uri->segment(1)==$menu[$i]['url']) ? "open" 		: "";
 				$sel 		= ($this->ci->uri->segment(1)==$menu[$i]['url']) ? "selected" 	: "";
 				
@@ -345,13 +344,13 @@ class Dynamic_menu {
                 if ($menu[$i]['is_parent'] == TRUE)
                 {
 					// $html_out .= "\t\t\t\t\t\t".'<li>'.anchor($menu[$i]['url'].' '.$this->class_parent, '<span>'.$menu[$i]['title'].'</span>');
-                    $html_out .= '<li><a href="#" class="has-arrow"><span class="mini-sub-pro">'.$menu[$i]['title'].'</span></a>';
+                    $html_out .= '<li class="'.$pClass.'"><a style="font-size:8pt;" href="#" class="has-arrow '.$pClass.'"><span class="mini-sub-pro">'.$menu[$i]['title'].'</span></a>';
                     $html_out .= $this->get_childs($menu, $i, $collapseP, $collapse);
                     $html_out .= '</li>' . "\n";
                 }
                 else
                 {
-                    $html_out .= '<li class="'.$sel.'">'.anchor($menu[$i]['url'], '<span class="mini-sub-pro">'.$menu[$i]['title'].'</span>');
+                    $html_out .= '<li class="'.$pClass.'"><a style="font-size:8pt;" class="'.$pClass.'"  href="'.base_url().$menu[$i]['url'].'" aria-expanded="false" aria-hidden="true"><span class="mini-sub-pro">'.$menu[$i]['title'].'</span></a>';
                     $html_out .= '</li>' . "\n";
                 }
                 // Recurse call to get more child submenus.

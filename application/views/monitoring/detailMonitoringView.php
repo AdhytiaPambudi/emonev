@@ -9,7 +9,7 @@
                                         <h4 style="text-align:center;color:#006df0;" id="judul-form">MONITORING PROGRAM</h4>
                                         <hr style="border-top:3px solid #006df0;">
                                         <div class="btn-group ib-btn-gp active-hook mail-btn-sd mg-b-15">
-                                            <a class="btn btn-default btn-sm" href="<?=base_url('data-pemantauan') ?>"><i class="fa fa-home"></i></a>
+                                            <a class="btn btn-default btn-sm" href="<?=base_url('monitoring-data') ?>"><i class="fa fa-home"></i></a>
                                             <a class="btn btn-primary btn-sm" href="#"><?= $dinas;?></a>
                                         </div>
 
