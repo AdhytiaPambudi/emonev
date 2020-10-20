@@ -1309,7 +1309,7 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
                             END AS tot_real_fisik,
                         (SELECT sum(Nilai) FROM trdrka where kd_kegiatan = '".$keg."' and tahun_anggaran = '".$ta."') as tot_target_keg,
                         (SELECT sum(Nilai_Ubah) FROM trdrka where kd_kegiatan = '".$keg."' and tahun_anggaran = '".$ta."') as tot_target_keg_ubah,
-                        bentuk,nilai_kontrak,kontraktor,no_kontrak,distrik,kampung,koordinat
+                        bentuk,distrik,kampung,koordinat
                              FROM (SELECT tahun_anggaran,kd_kegiatan,left(kd_rek5,3) as kode,(SELECT nm_rek3 from ms_rek3 where left(k.kd_rek5,3)=kd_rek3) as uraian, 0 as no,'' as tvolume,'' as tvolume_ubah, '' as satuan1, '' as satuan_ubah1, '' as harga1,'' as harga_ubah1,
                               Nilai as total, Nilai_ubah as total_ubah FROM trdrka k where kd_kegiatan = '".$keg."' and tahun_anggaran = ".$ta." GROUP BY left(kd_rek5,3),uraian,Nilai,Nilai_Ubah
                              union all 
