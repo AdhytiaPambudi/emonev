@@ -1311,7 +1311,7 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
                         (SELECT sum(Nilai_Ubah) FROM trdrka where kd_kegiatan = '".$keg."' and tahun_anggaran = '".$ta."') as tot_target_keg_ubah,
                         bentuk,nilai_kontrak,kontraktor,no_kontrak,distrik,kampung,koordinat
                              FROM (SELECT tahun_anggaran,kd_kegiatan,left(kd_rek5,3) as kode,(SELECT nm_rek3 from ms_rek3 where left(k.kd_rek5,3)=kd_rek3) as uraian, 0 as no,'' as tvolume,'' as tvolume_ubah, '' as satuan1, '' as satuan_ubah1, '' as harga1,'' as harga_ubah1,
-                              Nilai as total, Nilai_ubah as total_ubah FROM trdrka k where kd_kegiatan = '".$keg."' and tahun_anggaran = ".$ta." GROUP BY left(kd_rek5,3),uraian
+                              Nilai as total, Nilai_ubah as total_ubah FROM trdrka k where kd_kegiatan = '".$keg."' and tahun_anggaran = ".$ta." GROUP BY left(kd_rek5,3),uraian,Nilai,Nilai_Ubah
                              union all 
                              SELECT tahun_anggaran,kd_kegiatan,kd_rek5 as kode,uraian, no_po as no,
                              tvolume,tvolume_ubah,satuan1, satuan_ubah1, harga1,harga_ubah1,total,total_ubah FROM trdpo
@@ -1323,50 +1323,50 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
                         
                             
 
-						$sql1="SELECT *,(tot_real_keuangan/nilai)*100 as persen_keu FROM 
-                                            (SELECT kd_program AS kode,nm_program as uraian,'P' as jns,'' AS target,
-                                            (SELECT sum(".$ambilNilai.") from trdrka where left(kd_kegiatan,18) = a.kd_program and tahun_anggaran = a.tahun_anggaran) as nilai,sum(r.nilai_kontrak) as nilai_kontrak,
-                                CASE
-                                    WHEN ".$tw." = 1 THEN sum(b.keuangan1)
-                                    WHEN ".$tw." = 2 THEN sum(b.keuangan2)
-                                    WHEN ".$tw." = 3 THEN sum(b.keuangan3)
-                                    WHEN ".$tw." = 4 THEN sum(b.keuangan4)
-                                ELSE 0
-                            END AS tot_real_keuangan,
-                                CASE
-                                    WHEN ".$tw." = 1 THEN sum(b.fisik1)
-                                    WHEN ".$tw." = 2 THEN sum(b.fisik1)
-                                    WHEN ".$tw." = 3 THEN sum(b.fisik1)
-                                    WHEN ".$tw." = 4 THEN sum(b.fisik1)
-                                ELSE 0
-                            END AS tot_real_fisik
-                         FROM trskpd a 
-                        LEFT JOIN trdreal r on a.kd_kegiatan = r.kd_kegiatan and a.tahun_anggaran = r.tahun_anggaran
-                        where a.kd_skpd = '".$skpd."' and a.tahun_anggaran = ".$thn_anggaran." group by kd_program,nm_program
-                        union all
-                        SELECT a.kd_kegiatan AS kode,nm_kegiatan as uraian,'K' as jns,a.tk_kel AS target,
-                        (SELECT sum(".$ambilNilai.") from trdrka where kd_kegiatan = a.kd_kegiatan  and tahun_anggaran = a.tahun_anggaran) as nilai,sum(r.nilai_kontrak) as nilai_kontrak,
-                                CASE
-                                    WHEN ".$tw." = 1 THEN sum(r.keuangan1)
-                                    WHEN ".$tw." = 2 THEN sum(r.keuangan2)
-                                    WHEN ".$tw." = 3 THEN sum(r.keuangan3)
-                                    WHEN ".$tw." = 4 THEN sum(r.keuangan4)
-                                ELSE 0
-                            END AS tot_real_keuangan,
-                                CASE
-                                WHEN ".$tw." = 1 THEN sum(r.fisik1)
-                                WHEN ".$tw." = 2 THEN sum(r.fisik2)
-                                WHEN ".$tw." = 3 THEN sum(r.fisik3)
-                                WHEN ".$tw." = 4 THEN sum(r.fisik4)
-                                ELSE 0
-                            END AS tot_real_fisik,
-                            bentuk,nilai_kontrak,kontraktor,no_kontrak,distrik,kampung,koordinat
-                         FROM trskpd a 
-                        LEFT JOIN trdreal r on a.kd_kegiatan = r.kd_kegiatan and a.tahun_anggaran = r.tahun_anggaran
+						// $sql1="SELECT *,(tot_real_keuangan/nilai)*100 as persen_keu FROM 
+      //                                       (SELECT kd_program AS kode,nm_program as uraian,'P' as jns,'' AS target,
+      //                                       (SELECT sum(".$ambilNilai.") from trdrka where left(kd_kegiatan,18) = a.kd_program and tahun_anggaran = a.tahun_anggaran) as nilai,sum(r.nilai_kontrak) as nilai_kontrak,
+      //                           CASE
+      //                               WHEN ".$tw." = 1 THEN sum(b.keuangan1)
+      //                               WHEN ".$tw." = 2 THEN sum(b.keuangan2)
+      //                               WHEN ".$tw." = 3 THEN sum(b.keuangan3)
+      //                               WHEN ".$tw." = 4 THEN sum(b.keuangan4)
+      //                           ELSE 0
+      //                       END AS tot_real_keuangan,
+      //                           CASE
+      //                               WHEN ".$tw." = 1 THEN sum(b.fisik1)
+      //                               WHEN ".$tw." = 2 THEN sum(b.fisik1)
+      //                               WHEN ".$tw." = 3 THEN sum(b.fisik1)
+      //                               WHEN ".$tw." = 4 THEN sum(b.fisik1)
+      //                           ELSE 0
+      //                       END AS tot_real_fisik
+      //                    FROM trskpd a 
+      //                   LEFT JOIN trdreal r on a.kd_kegiatan = r.kd_kegiatan and a.tahun_anggaran = r.tahun_anggaran
+      //                   where a.kd_skpd = '".$skpd."' and a.tahun_anggaran = ".$thn_anggaran." group by kd_program,nm_program
+      //                   union all
+      //                   SELECT a.kd_kegiatan AS kode,nm_kegiatan as uraian,'K' as jns,a.tk_kel AS target,
+      //                   (SELECT sum(".$ambilNilai.") from trdrka where kd_kegiatan = a.kd_kegiatan  and tahun_anggaran = a.tahun_anggaran) as nilai,sum(r.nilai_kontrak) as nilai_kontrak,
+      //                           CASE
+      //                               WHEN ".$tw." = 1 THEN sum(r.keuangan1)
+      //                               WHEN ".$tw." = 2 THEN sum(r.keuangan2)
+      //                               WHEN ".$tw." = 3 THEN sum(r.keuangan3)
+      //                               WHEN ".$tw." = 4 THEN sum(r.keuangan4)
+      //                           ELSE 0
+      //                       END AS tot_real_keuangan,
+      //                           CASE
+      //                           WHEN ".$tw." = 1 THEN sum(r.fisik1)
+      //                           WHEN ".$tw." = 2 THEN sum(r.fisik2)
+      //                           WHEN ".$tw." = 3 THEN sum(r.fisik3)
+      //                           WHEN ".$tw." = 4 THEN sum(r.fisik4)
+      //                           ELSE 0
+      //                       END AS tot_real_fisik,
+      //                       bentuk,distrik,kampung,koordinat
+      //                    FROM trskpd a 
+      //                   LEFT JOIN trdreal r on a.kd_kegiatan = r.kd_kegiatan and a.tahun_anggaran = r.tahun_anggaran
                         
-                        where a.kd_skpd = '".$skpd."' and a.tahun_anggaran = ".$thn_anggaran." group by a.kd_kegiatan,a.nm_kegiatan) a
+      //                   where a.kd_skpd = '".$skpd."' and a.tahun_anggaran = ".$thn_anggaran." group by a.kd_kegiatan,a.nm_kegiatan) a
                         
-                        ORDER BY kode";
+      //                   ORDER BY kode";
                                 
                                
 								
@@ -1450,8 +1450,10 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
 	                        $tot_kontrak_keg = $tot_kontrak_keg + $valKontrak->nilai_kontrak;
 	                        $list_no_kontrak .= '&rarr;'.$valKontrak->no_kontrak.'<br>';
 	                        $list_kontraktor .= '&rarr;'.$valKontrak->kontraktor.'<br>';
+	                        $jumlahNilaiKontrak = $jumlahNilaiKontrak+$valKontrak->nilai_kontrak;
 	                    }
 	                    $tot_kontrak_keg = number_format($tot_kontrak_keg,'2',',','.');
+	                    // $tot_kontrak_keg_dec = number_format($tot_kontrak_keg,'2',',','.');
 
 
                         
@@ -1487,7 +1489,7 @@ on dau.kd_skpd = jml.kd_skpd AND dau.tahun_anggaran = jml.tahun_anggaran
 										 ";
                         }else{
                             $nokeg++;
-                            $jumlahNilaiKontrak = $jumlahNilaiKontrak+$value->nilai_kontrak;
+                            // $jumlahNilaiKontrak = $jumlahNilaiKontrak+$valKontrak->nilai_kontrak;
                             $cRet    .= " <tr><td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">$nokeg</td>                                     
                                         <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" >$uraian</td>
                                         <td style=\"vertical-align:top;border-top: solid 1px black;border-bottom: none;\" align=\"center\">$target_fisik</td>
