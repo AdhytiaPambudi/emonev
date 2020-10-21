@@ -1591,6 +1591,8 @@
 				from trdrka a 
 				LEFT JOIN trdreal b on a.tahun_anggaran = b.tahun_anggaran and a.kd_kegiatan = b.kd_kegiatan and a.kd_rek5 = b.kd_rekening
 				where left(kd_rek5,1) in('5') and a.tahun_anggaran = ".$thn." group by	a.kd_skpd) a order by persen asc,kd_skpd asc limit 5;";
+
+
 			$data = $this->db->query($sql)->result();
 			foreach ($data as $value) {
 				$nm_skpd=$value->nm_skpd;

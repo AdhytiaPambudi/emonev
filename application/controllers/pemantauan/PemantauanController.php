@@ -374,7 +374,14 @@ WHERE b.`kd_kegiatan` = '$keg' AND b.`tahun_anggaran` = $thn";
 			
 			$hasilPrimary = $this->db->affected_rows();
 			
-			$cekTable = $this->db->get_where('trdreal_lamp', array('tahun_anggaran' => $thn,'kd_kegiatan' => $keg))->result();	
+			$queryCheck = "SELECT * FROM trdreal_lamp b 
+				LEFT JOIN
+				(SELECT tahun_anggaran,kd_kegiatan,kd_rek5 AS kode,uraian, no_po AS NO,
+				tvolume,tvolume_ubah,satuan1, satuan_ubah1, harga1,harga_ubah1,total,total_ubah FROM trdpo) a 
+				ON a.kd_kegiatan = b.`kd_kegiatan` AND a.tahun_anggaran = b.`tahun_anggaran` AND a.kode = b.`kd_rek` AND a.no = b.`no_po`
+				WHERE b.`kd_kegiatan` = '$keg' AND b.`tahun_anggaran` = $thn";
+
+			$cekTable = $this->db->query($queryCheck)->result();
 
 				if (count($cekTable) <> 0) {
 					$htmlTable = '';
@@ -402,6 +409,7 @@ WHERE b.`kd_kegiatan` = '$keg' AND b.`tahun_anggaran` = $thn";
 
 						if ($value->status == 1) {
 							$pub="<label class='label label-success'>Aktif</label>";
+							
 						}else{
 							$pub = ''; 
 						}
@@ -409,10 +417,13 @@ WHERE b.`kd_kegiatan` = '$keg' AND b.`tahun_anggaran` = $thn";
 										<td class="active" style="text-align: center;vertical-align:middle;">
 										'.$noFile++.'
 										</td>  
-										<td style="text-align: center;">
+										<td style="text-align: center;" >
 											'.$fileDok.'
 										</td>  
 										<td>
+										'.$value->uraian.'
+										</td>
+										<td style="text-align: center;">
 										'.$pub.'
 										</td>
 										<td style="vertical-align:middle;">
